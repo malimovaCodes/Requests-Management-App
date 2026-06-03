@@ -16,7 +16,12 @@ const initialState: RequestsState = {
 const requestsSlice = createSlice({
     name: "requests",
     initialState,
-    reducers: {}
+    reducers: {
+        addRequest: (state, action) => {
+            state.requests.push(action.payload);
+        }
+    }
 });
 
 export default requestsSlice.reducer;
+export const { addRequest } = requestsSlice.actions;
