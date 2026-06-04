@@ -19,6 +19,8 @@ import {
 import { useState, useEffect } from 'react';
 import { updateRequestStatus } from '@/store/requestSlice';
 import { loadRequestsFromStorage } from '@/store/requestSlice';
+import { PageHeader } from '@/components/common/PageHeader';
+import { StatusBadge } from '@/components/common/StatusBadge';
 
 export function RequestViewContent() {
     const searchParams = useSearchParams();

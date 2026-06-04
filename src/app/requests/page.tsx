@@ -8,6 +8,7 @@ import isBetween from 'dayjs/plugin/isBetween';
 import { TRequestStatus, STATUS_LABELS } from "@/app/types";
 import { useState, useMemo, useEffect } from "react";
 import { useRouter } from 'next/navigation';
+import { PlusOutlined } from '@ant-design/icons';
 
 export default function RequestsListPage() {
     const router = useRouter();
@@ -48,8 +49,9 @@ export default function RequestsListPage() {
     }, [dispatch]);
 
     return (
-        <div>
-            <h1>Список заявок</h1>
+        <>
+            <div style={{ padding: '24px', maxWidth: 1200, margin: '0 auto' }}>
+                <h1>Список заявок</h1>
             <Space wrap style={{ marginBottom: 20, width: '100%' }}>
                 <Select
                     placeholder="Все отделы"
@@ -74,7 +76,7 @@ export default function RequestsListPage() {
 
                 <RangePicker
                     placeholder={['Дата от', 'Дата до']}
-                    onChange={(dates) => setFilters({ ...filters, dateRange: dates })}
+                    onChange={(dates: any) => setFilters({ ...filters, dateRange: (dates as [dayjs.Dayjs, dayjs.Dayjs]) ?? null })}
                 />
                 <Button
                     type="primary"
@@ -95,7 +97,10 @@ export default function RequestsListPage() {
                     style: { cursor: 'pointer' }
                 })}
             />
-        </div>
+            </div>
+
+            
+        </>
     );
 }
 

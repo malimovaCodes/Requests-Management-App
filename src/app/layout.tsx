@@ -5,6 +5,7 @@ import ruRU from 'antd/locale/ru_RU';
 import { AntdRegistry } from '@ant-design/nextjs-registry';
 import { makeStore } from '@/store/store';
 import './globals.css';
+import { PageHeader } from '@/components/common/PageHeader';
 
 export default function RootLayout(
   {
@@ -21,6 +22,7 @@ export default function RootLayout(
         <Provider store={store}>
           <AntdRegistry>
             <ConfigProvider locale={ruRU}>
+              <PageHeader />
               <main style={{ padding: '24px', maxWidth: '1200px', margin: '0 auto' }}>
                 {children}
               </main>
