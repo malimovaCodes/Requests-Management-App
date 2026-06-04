@@ -20,7 +20,7 @@ export default function RequestsListPage() {
     }, [dispatch]);
 
     return (
-        <div style={{ padding: '24px', maxWidth: 1200, margin: '0 auto' }}>
+        <div className="p-6 max-w-[1200px] mx-auto">
             <RequestsListLayout
                 requests={filteredRequests}
                 isLoading={isLoading}

@@ -24,7 +24,7 @@ export default function RootLayout(
           <AntdRegistry>
             <ConfigProvider locale={ruRU}>
               <PageHeader />
-              <main style={{ padding: '24px', maxWidth: '1200px', margin: '0 auto' }}>
+              <main className="p-6 max-w-[1200px] mx-auto">
                 {children}
               </main>
             </ConfigProvider>

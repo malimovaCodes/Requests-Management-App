@@ -16,7 +16,7 @@ export function CreateRequestLayout({
     onCancel,
 }: CreateRequestLayoutProps) {
     return (
-        <div style={{ padding: '20px' }}>
+        <div className="p-6">
             <Title level={2}>Создание новой заявки</Title>
             <Form form={form} onFinish={onFinish} layout="vertical">
                 <Tabs defaultActiveKey="1" items={tabItems} />
