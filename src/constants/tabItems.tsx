@@ -1,7 +1,7 @@
 import { TabsProps } from 'antd';
 import { TRequest } from '@/types';
-import { MainInfoTabContent } from '@/components/requests/view/MainInfoTabContent';
-import { ItemsTabContent } from '@/components/requests/view/ItemsTabContent';
+import { MainInfoTabContent } from '@/components/requests/view/RequestDetails';
+import { ItemsTabContent } from '@/components/requests/view/OrderItemsTable';
 
 interface GetRequestTabItemsArgs {
     request: TRequest;
