@@ -1,21 +1,23 @@
 'use client'
 import { useSelector, useDispatch } from "react-redux"
 import type { RootState, AppDispatch } from "@/store/store"
-import { DatePicker, Table, Select, Space } from "antd";
+import { DatePicker, Table, Select, Space, Button } from "antd";
 import dayjs from "dayjs";
 import isBetween from 'dayjs/plugin/isBetween';
-import { RequestStatus, STATUS_LABELS } from "@/app/types";
+import { TRequestStatus, STATUS_LABELS } from "@/app/types";
 import { useState, useMemo } from "react";
+import { useRouter } from 'next/navigation';
 
 export default function RequestsListPage() {
-    const dispatch = useDispatch<AppDispatch>(); 
-    const { requests, isLoading } = useSelector((state: RootState) => state.requests); 
+    const router = useRouter();
+    const dispatch = useDispatch<AppDispatch>();
+    const { requests, isLoading } = useSelector((state: RootState) => state.requests);
 
     const { RangePicker } = DatePicker;
 
     const [filters, setFilters] = useState({
         department: undefined as string | undefined,
-        status: undefined as RequestStatus | undefined,
+        status: undefined as TRequestStatus | undefined,
         dateRange: null as [dayjs.Dayjs, dayjs.Dayjs] | null,
     });
 
@@ -69,8 +71,25 @@ export default function RequestsListPage() {
                     placeholder={['Дата от', 'Дата до']}
                     onChange={(dates) => setFilters({ ...filters, dateRange: dates })}
                 />
+                <Button
+                    type="primary"
+                    size="large"
+                    onClick={() => router.push('/requests/new')}
+                >
+                    Создать заявку
+                </Button>
             </Space>
-            <Table columns={columns} dataSource={filteredRequests} loading={isLoading} rowKey="id" />
+            <Table
+                columns={columns}
+                dataSource={filteredRequests}
+                loading={isLoading} rowKey="id"
+                onRow={(record) => ({
+                    onClick: () => {
+                        router.push(`/requests/view?id=${record.id}`);
+                    },
+                    style: { cursor: 'pointer' }
+                })}
+            />
         </div>
     );
 }
@@ -101,7 +120,7 @@ const columns = [
         title: 'Статус',
         dataIndex: 'status',
         key: 'status',
-        render: (status: RequestStatus) => {
+        render: (status: TRequestStatus) => {
             const label = STATUS_LABELS[status];
             return label;
         },

@@ -1,6 +1,6 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import * as types from "@/app/types"
-import { TRequest } from "@/app/types";
+import { TRequest, TRequestStatus } from "@/app/types";
 import { initialRequests } from "../mock/data";
 
 type RequestsState = {
@@ -17,11 +17,18 @@ const requestsSlice = createSlice({
     name: "requests",
     initialState,
     reducers: {
-        addRequest: (state, action) => {
+        addRequest: (state, action: PayloadAction<TRequest>) => {
             state.requests.push(action.payload);
-        }
+        },
+        updateRequestStatus: (state, action: PayloadAction<{ id: string; status: TRequestStatus }>) => {
+            const request = state.requests.find(r => r.id === action.payload.id);
+            if (request) {
+                request.status = action.payload.status;
+                request.updatedAt = new Date().toISOString();
+            }
+        },
     }
 });
 
 export default requestsSlice.reducer;
-export const { addRequest } = requestsSlice.actions;
+export const { addRequest, updateRequestStatus } = requestsSlice.actions;

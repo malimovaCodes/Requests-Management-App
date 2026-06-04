@@ -1,8 +1,8 @@
 'use client';
 import { useSearchParams, useRouter } from 'next/navigation';
-import { useSelector } from 'react-redux';
-import { RootState } from '@/store/store';
-import { TRequest, TRequestStatus, STATUS_LABELS } from '@/app/types';
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState, AppDispatch } from '@/store/store';
+import { TRequest, TRequestStatus, STATUS_LABELS, STATUS_FLOW } from '@/app/types';
 import { 
     Tabs, 
     TabsProps, 
@@ -17,16 +17,22 @@ import {
     Card
 } from 'antd';
 import { useState } from 'react';
+import { updateRequestStatus } from '@/store/requestSlice';
 
 export function RequestViewContent() {
     const searchParams = useSearchParams();
     const router = useRouter();
     const id = searchParams.get('id');
+
+    const [selectedStatus, setSelectedStatus] = useState<TRequestStatus | undefined>();
+    const [isUpdating, setIsUpdating] = useState(false);
+
+    const dispatch = useDispatch<AppDispatch>();
     
     const { requests } = useSelector((state: RootState) => state.requests);
     const request = requests.find((r) => r.id === id);
     
-    const [selectedStatus, setSelectedStatus] = useState<TRequestStatus | undefined>();
+    
 
     if (!id) {
         return <Empty description="Не указан ID заявки" />;
@@ -36,6 +42,9 @@ export function RequestViewContent() {
         return <Empty description="Заявка не найдена" />;
     }
 
+    const currentStatusIndex = STATUS_FLOW.indexOf(request.status);
+    const availableStatuses = STATUS_FLOW.slice(currentStatusIndex + 1);
+
     const handleStatusChange = () => {
         if (!selectedStatus) {
             message.error('Выберите статус');
@@ -44,13 +53,37 @@ export function RequestViewContent() {
 
         Modal.confirm({
             title: 'Подтверждение изменения статуса',
-            content: `Вы уверены, что хотите изменить статус на "${STATUS_LABELS[selectedStatus]}"?`,
-            onOk: () => {
-                message.success(`Статус изменён на "${STATUS_LABELS[selectedStatus]}"`);
-                setSelectedStatus(undefined);
-            }
+            content: (
+                <div>
+                    <p>Вы уверены, что хотите изменить статус?</p>
+                    <div style={{ marginTop: 12, padding: 12, backgroundColor: '#f5f5f5', borderRadius: 4 }}>
+                        <div><strong>Текущий:</strong> {STATUS_LABELS[request.status]}</div>
+                        <div style={{ marginTop: 8 }}><strong>Новый:</strong> <span style={{ color: '#1890ff', fontWeight: 600 }}>{STATUS_LABELS[selectedStatus]}</span></div>
+                    </div>
+                </div>
+            ),
+            okText: 'Да, изменить',
+            cancelText: 'Отмена',
+            okButtonProps: { type: 'primary' },
+            onOk: async () => {
+                setIsUpdating(true);
+                try {
+                    dispatch(updateRequestStatus({ 
+                        id: request.id, 
+                        status: selectedStatus 
+                    }));
+                    
+                    message.success(`Статус изменён на "${STATUS_LABELS[selectedStatus]}"`);
+                    setSelectedStatus(undefined);
+                } catch (error) {
+                    message.error('Ошибка при изменении статуса');
+                } finally {
+                    setIsUpdating(false);
+                }
+            },
         });
     };
+
 
     const mainInfoTab = (
         <div>
@@ -92,16 +125,79 @@ export function RequestViewContent() {
                 </div>
             </Card>
 
+            {request.status !== 'ISSUED' && availableStatuses.length > 0 && (
+                <Card title="Изменение статуса">
+                    <div style={{ marginBottom: 16 }}>
+                        <div style={{ color: '#666', fontSize: 14, marginBottom: 8 }}>
+                            Текущий статус: <strong>{STATUS_LABELS[request.status]}</strong>
+                        </div>
+                    </div>
+                    <div style={{ display: 'flex', gap: 16, alignItems: 'center', flexWrap: 'wrap' }}>
+                        <div style={{ flex: 1, minWidth: 250 }}>
+                            <div style={{ color: '#666', fontSize: 12, marginBottom: 4 }}>Изменить статус на</div>
+                            <Select
+                                value={selectedStatus}
+                                onChange={setSelectedStatus}
+                                placeholder="Выберите следующий статус"
+                                style={{ width: '100%' }}
+                                options={availableStatuses.map(status => ({
+                                    value: status,
+                                    label: STATUS_LABELS[status]
+                                }))}
+                                disabled={isUpdating}
+                            />
+                        </div>
+                        <Button 
+                            type="primary" 
+                            onClick={handleStatusChange}
+                            disabled={!selectedStatus || isUpdating}
+                            loading={isUpdating}
+                            style={{ marginTop: 20 }}
+                        >
+                            Сохранить
+                        </Button>
+                    </div>
+                    
+                    <Divider style={{ margin: '16px 0' }} />
+                    <div style={{ fontSize: 13, color: '#666' }}>
+                        <div style={{ marginBottom: 8, fontWeight: 500 }}>Доступные статусы для перехода:</div>
+                        <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+                            {availableStatuses.map((status, index) => (
+                                <span key={status}>
+                                    <span style={{ 
+                                        display: 'inline-block',
+                                        padding: '4px 12px',
+                                        backgroundColor: '#e6f7ff',
+                                        borderRadius: 4,
+                                        color: '#1890ff',
+                                        border: '1px solid #91d5ff'
+                                    }}>
+                                        {STATUS_LABELS[status]}
+                                    </span>
+                                    {index < availableStatuses.length - 1 && (
+                                        <span style={{ margin: '0 4px' }}>→</span>
+                                    )}
+                                </span>
+                            ))}
+                        </div>
+                    </div>
+                </Card>
+            )}
+
             {request.status === 'ISSUED' && (
                 <Card>
                     <div style={{ 
-                        padding: '12px',
-                        backgroundColor: '#f5f5f5', 
+                        padding: '16px',
+                        backgroundColor: '#fff7e6', 
                         borderRadius: 4,
-                        color: '#666',
-                        textAlign: 'center'
+                        color: '#fa8c16',
+                        textAlign: 'center',
+                        border: '1px solid #ffd591'
                     }}>
-                        Изменение статуса недоступно (заявка выдана)
+                        <strong>Заявка закрыта</strong>
+                        <div style={{ marginTop: 8, fontSize: 14 }}>
+                            Изменение статуса недоступно (товар выдан)
+                        </div>
                     </div>
                 </Card>
             )}

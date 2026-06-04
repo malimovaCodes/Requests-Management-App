@@ -13,6 +13,14 @@ export const STATUS_LABELS: Record<TRequestStatus, string> = {
   ISSUED: "Выдано",
 };
 
+export const STATUS_FLOW: TRequestStatus[] = [
+  "ON_APPROVAL",
+  "APPROVED",
+  "ORDERED",
+  "ARRIVED",
+  "ISSUED",
+];
+
 export type TDepartment = { 
   id: string; 
   name: string; 
