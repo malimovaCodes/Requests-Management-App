@@ -31,9 +31,7 @@ export default function CreateNewRequestPage() {
     const dispatch = useDispatch<AppDispatch>();
 
     const items = Form.useWatch('items', form) || [];
-    const grandTotal = items.reduce((sum: number, item: any) => {
-        return sum + (Number(item.quantity) * Number(item.price) || 0);
-    }, 0);
+    const [grandTotal, setGrandTotal] = useState(0);
 
     useEffect(() => {
         dispatch(loadRequestsFromStorage());
@@ -53,9 +51,10 @@ export default function CreateNewRequestPage() {
         }
 
         const currentItems = form.getFieldValue('items') || [];
+        let updatedItems: any[];
 
         if (editingIndex !== null) {
-            const updatedItems = [...currentItems];
+            updatedItems = [...currentItems];
             updatedItems[editingIndex] = {
                 ...updatedItems[editingIndex],
                 name: newItem.name,
@@ -65,11 +64,9 @@ export default function CreateNewRequestPage() {
                 price: newItem.price,
                 totalPrice: newItem.quantity * newItem.price
             };
-
-            form.setFieldValue('items', updatedItems);
             message.success('Позиция обновлена');
         } else {
-            form.setFieldValue('items', [
+            updatedItems = [
                 ...currentItems,
                 {
                     id: crypto.randomUUID(),
@@ -80,17 +77,18 @@ export default function CreateNewRequestPage() {
                     price: newItem.price,
                     totalPrice: newItem.quantity * newItem.price
                 }
-            ]);
+            ];
             message.success('Позиция добавлена');
         }
 
-        setNewItem({
-            name: '',
-            link: '',
-            unit: '',
-            quantity: 0,
-            price: 0
-        });
+        form.setFieldValue('items', updatedItems);
+
+        const newTotal = updatedItems.reduce((sum: number, item: any) => {
+            return sum + (Number(item.quantity) * Number(item.price) || 0);
+        }, 0);
+        setGrandTotal(newTotal);
+
+        setNewItem({ name: '', link: '', unit: '', quantity: 0, price: 0 });
         setEditingIndex(null);
     };
 
