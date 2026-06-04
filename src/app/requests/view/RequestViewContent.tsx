@@ -2,7 +2,7 @@
 import { useSearchParams, useRouter } from 'next/navigation';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState, AppDispatch } from '@/store/store';
-import {  TRequestStatus, STATUS_LABELS, STATUS_FLOW } from '@/app/types';
+import { TRequestStatus, STATUS_LABELS, STATUS_FLOW } from '@/types';
 import { Tabs, TabsProps, Table, Button, Empty, Divider, message, Modal, Card } from 'antd';
 import { useState, useEffect } from 'react';
 import { updateRequestStatus } from '@/store/requestSlice';
@@ -12,6 +12,7 @@ import { detailsColumns } from '@/constants/tableColumns';
 import { RequestInfoCard } from '@/components/requests/RequestInfoCard';
 import { StatusChanger } from '@/components/requests/StatusChanger';
 import { useStatusChanger } from '@/hooks/useStatusChanger';
+import { getRequestTabItems } from '@/constants/tabItems';
 
 
 export function RequestViewContent() {
@@ -20,10 +21,10 @@ export function RequestViewContent() {
     const searchParams = useSearchParams();
     const router = useRouter();
     const id = searchParams.get('id');
-    
+
     const { requests } = useSelector((state: RootState) => state.requests);
     const request = requests.find((r) => r.id === id);
-    
+
     const { selectedStatus, setSelectedStatus, isUpdating, handleStatusChange } = useStatusChanger(request?.id || '', request?.status || 'ON_APPROVAL');
 
     if (!id) {
@@ -35,25 +36,25 @@ export function RequestViewContent() {
     }
 
     const mainInfoTab = (
-    <div>
-        <RequestInfoCard request={request} />
-        <StatusChanger
-            currentStatus={request.status}
-            selectedStatus={selectedStatus}
-            isUpdating={isUpdating}
-            onStatusSelect={setSelectedStatus}
-            onStatusChange={handleStatusChange}
-        />
-    </div>
-);
+        <div>
+            <RequestInfoCard request={request} />
+            <StatusChanger
+                currentStatus={request.status}
+                selectedStatus={selectedStatus}
+                isUpdating={isUpdating}
+                onStatusSelect={setSelectedStatus}
+                onStatusChange={handleStatusChange}
+            />
+        </div>
+    );
 
     const itemsTab = (
         <div>
             <Card>
-                <Table 
-                    columns={detailsColumns} 
-                    dataSource={request.items} 
-                    rowKey="id" 
+                <Table
+                    columns={detailsColumns}
+                    dataSource={request.items}
+                    rowKey="id"
                     pagination={false}
                     style={{ marginBottom: 16 }}
                 />
@@ -65,46 +66,23 @@ export function RequestViewContent() {
         </div>
     );
 
-    const tabItems: TabsProps['items'] = [
-        {
-            key: '1',
-            label: 'Основная информация',
-            children: mainInfoTab,
-        },
-        {
-            key: '2',
-            label: (
-                <span>
-                    Состав заказа
-                    {request.items.length > 0 && (
-                        <span style={{ 
-                            marginLeft: 8, 
-                            backgroundColor: '#1890ff', 
-                            color: '#fff',
-                            borderRadius: 10,
-                            padding: '2px 8px',
-                            fontSize: 12
-                        }}>
-                            {request.items.length}
-                        </span>
-                    )}
-                </span>
-            ),
-            children: itemsTab,
-        },
-    ];
+    const tabItems = getRequestTabItems({
+        request,
+        mainInfoTab,
+        itemsTab,
+    });
 
     return (
         <div style={{ padding: '24px' }}>
-            <div style={{ 
-                display: 'flex', 
-                justifyContent: 'space-between', 
+            <div style={{
+                display: 'flex',
+                justifyContent: 'space-between',
                 alignItems: 'center',
-                marginBottom: 24 
+                marginBottom: 24
             }}>
                 <div>
                     <Title level={2}>Заявка №{request.number}</Title>
-                    <div style={{ 
+                    <div style={{
                         marginTop: 8,
                         display: 'inline-block',
                         padding: '4px 12px',
@@ -116,10 +94,10 @@ export function RequestViewContent() {
                         {STATUS_LABELS[request.status]}
                     </div>
                 </div>
-                <Button 
-                    size="large" 
+                <Button
+                    size="large"
                     onClick={() => router.push('/requests')}
-                    style={{ 
+                    style={{
                         borderColor: '#d9d9d9',
                         color: '#666'
                     }}

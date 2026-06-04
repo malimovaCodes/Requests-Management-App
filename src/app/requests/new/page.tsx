@@ -6,7 +6,7 @@ import { Form, Input, Button, Select, Checkbox, Tabs, Space, message, Divider, B
 import { PlusOutlined, EditOutlined, DeleteOutlined, SaveOutlined } from "@ant-design/icons";
 import { loadRequestsFromStorage } from '@/store/requestSlice';
 
-import { TRequest, TDepartment } from '@/app/types';
+import { TRequest, TDepartment } from '@/types';
 import { addRequest } from '@/store/requestSlice';
 import { AppDispatch } from '@/store/store';
 

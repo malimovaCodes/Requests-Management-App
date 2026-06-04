@@ -1,5 +1,5 @@
 import { Tag } from 'antd';
-import { TRequestStatus, STATUS_LABELS } from '@/app/types';
+import { TRequestStatus, STATUS_LABELS } from '@/types';
 
 interface StatusBadgeProps {
     status: TRequestStatus;

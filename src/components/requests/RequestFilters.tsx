@@ -1,7 +1,7 @@
 'use client';
 
 import { Select, DatePicker, Space } from 'antd';
-import { TRequestStatus, STATUS_LABELS } from '@/app/types';
+import { TRequestStatus, STATUS_LABELS } from '@/types';
 
 const { RangePicker } = DatePicker;
 

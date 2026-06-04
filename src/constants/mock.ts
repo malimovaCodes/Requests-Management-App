@@ -1,4 +1,4 @@
-import { TDepartment, TRequest } from "@/app/types"
+import { TDepartment, TRequest } from "@/types"
 
 export const INITIAL_REQUESTS_MOCK : TRequest[] = [
     {

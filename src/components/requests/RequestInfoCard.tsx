@@ -1,5 +1,5 @@
 import { Card } from 'antd';
-import { TRequest, STATUS_LABELS } from '@/app/types';
+import { TRequest, STATUS_LABELS } from '@/types';
 import { formatDateTime } from '@/utils/formatDate';
 
 interface RequestInfoCardProps {

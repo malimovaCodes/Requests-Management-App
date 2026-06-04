@@ -1,5 +1,5 @@
 import { formatDate } from "@/utils/formatDate";
-import { STATUS_LABELS, TRequestStatus } from "@/app/types";
+import { STATUS_LABELS, TRequestStatus } from "@/types";
 import { StatusBadge } from "../components/common/StatusBadge";
 
 

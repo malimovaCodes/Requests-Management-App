@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
-import * as types from "@/app/types"
-import { TRequest, TRequestStatus } from "@/app/types";
+import * as types from "@/types"
+import { TRequest, TRequestStatus } from "@/types";
 import { INITIAL_REQUESTS_MOCK } from "@/constants/mock";
 
 type RequestsState = {

@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { message, Modal } from 'antd';
 import { AppDispatch } from '@/store/store';
 import { updateRequestStatus } from '@/store/requestSlice';
-import { TRequestStatus, STATUS_LABELS } from '@/app/types';
+import { TRequestStatus, STATUS_LABELS } from '@/types';
 
 export function useStatusChanger(requestId: string, currentStatus: TRequestStatus) {
     const dispatch = useDispatch<AppDispatch>();

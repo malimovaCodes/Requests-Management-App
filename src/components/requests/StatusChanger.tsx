@@ -1,5 +1,5 @@
 import { Card, Select, Button, Divider } from 'antd';
-import { TRequestStatus, STATUS_LABELS, STATUS_FLOW } from '@/app/types';
+import { TRequestStatus, STATUS_LABELS, STATUS_FLOW } from '@/types';
 
 interface StatusChangerProps {
     currentStatus: TRequestStatus;

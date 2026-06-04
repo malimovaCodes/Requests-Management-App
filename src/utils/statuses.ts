@@ -1,4 +1,4 @@
-import { TRequestStatus } from '@/app/types';
+import { TRequestStatus } from '@/types';
 
 export const STATUS_FLOW: TRequestStatus[] = [
     'ON_APPROVAL',

@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import { TRequest, TRequestStatus } from '@/app/types';
+import { TRequest, TRequestStatus } from '@/types';
 import { isDateInRange } from '@/utils/formatDate';
 
 export function useRequestFilters(requests: TRequest[]) {
