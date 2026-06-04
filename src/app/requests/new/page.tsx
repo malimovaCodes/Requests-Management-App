@@ -3,14 +3,14 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useDispatch } from 'react-redux';
-import { Form, Button, Tabs, Space, message, Divider, Badge } from 'antd';
+import { Form, message, Badge } from 'antd';
 import { loadRequestsFromStorage } from '@/store/requestSlice';
 import { useRequestCreator } from '@/hooks/useRequestCreator';
 import { AppDispatch } from '@/store/store';
 import { MainInfoForm } from '@/components/requests/create/MainInfoForm';
 import { ItemsForm } from '@/components/requests/create/ItemsForm';
 import { TabsProps } from 'antd/lib/tabs';
-
+import { CreateRequestLayout } from '@/components/requests/create/CreateRequestLayout';
 import { INITIAL_DEPARTMENTS_MOCK } from '@/constants/mock';
 
 export default function CreateNewRequestPage() {
@@ -162,16 +162,11 @@ export default function CreateNewRequestPage() {
     ];
 
     return (
-        <div style={{ padding: '20px' }}>
-            <h1>Создание новой заявки</h1>
-            <Form form={form} onFinish={handleSubmit} layout="vertical">
-                <Tabs defaultActiveKey="1" items={tabItems} />
-                <Divider />
-                <Space>
-                    <Button onClick={() => router.back()}>Отменить</Button>
-                    <Button type="primary" htmlType="submit">Готово</Button>
-                </Space>
-            </Form>
-        </div>
+        <CreateRequestLayout
+            form={form}
+            tabItems={tabItems}
+            onFinish={handleSubmit}
+            onCancel={() => router.back()}
+        />
     );
 }
