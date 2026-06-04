@@ -1,9 +1,10 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect} from 'react';
 import { useRouter } from 'next/navigation';
 import { useDispatch } from 'react-redux';
 import { Form, Input, Button, Select, Checkbox, Tabs, Space, message, Divider, Badge } from 'antd';
 import { PlusOutlined, EditOutlined, DeleteOutlined, SaveOutlined } from "@ant-design/icons";
+import { loadRequestsFromStorage } from '@/store/requestSlice';
 
 import { TRequest, TDepartment } from '@/app/types';
 import { addRequest } from '@/store/requestSlice';
@@ -36,6 +37,10 @@ export default function CreateNewRequestPage() {
     const grandTotal = items.reduce((sum: number, item: any) => {
         return sum + (Number(item.quantity) * Number(item.price) || 0);
     }, 0);
+
+    useEffect(() => {
+        dispatch(loadRequestsFromStorage());
+    }, [dispatch]);
 
     const onFinish = async (values: any) => {
         const itemsFromForm = form.getFieldValue('items') || [];

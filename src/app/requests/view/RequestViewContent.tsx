@@ -16,8 +16,9 @@ import {
     Modal,
     Card
 } from 'antd';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { updateRequestStatus } from '@/store/requestSlice';
+import { loadRequestsFromStorage } from '@/store/requestSlice';
 
 export function RequestViewContent() {
     const searchParams = useSearchParams();
@@ -32,7 +33,9 @@ export function RequestViewContent() {
     const { requests } = useSelector((state: RootState) => state.requests);
     const request = requests.find((r) => r.id === id);
     
-    
+    useEffect(() => {
+        dispatch(loadRequestsFromStorage());
+    }, [dispatch]);
 
     if (!id) {
         return <Empty description="Не указан ID заявки" />;

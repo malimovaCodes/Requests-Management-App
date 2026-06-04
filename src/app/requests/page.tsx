@@ -1,11 +1,12 @@
 'use client'
 import { useSelector, useDispatch } from "react-redux"
 import type { RootState, AppDispatch } from "@/store/store"
+import { loadRequestsFromStorage } from "@/store/requestSlice"
 import { DatePicker, Table, Select, Space, Button } from "antd";
 import dayjs from "dayjs";
 import isBetween from 'dayjs/plugin/isBetween';
 import { TRequestStatus, STATUS_LABELS } from "@/app/types";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { useRouter } from 'next/navigation';
 
 export default function RequestsListPage() {
@@ -41,6 +42,10 @@ export default function RequestsListPage() {
             return matchDepartment && matchStatus && matchDate;
         });
     }, [requests, filters]);
+
+    useEffect(() => {
+        dispatch(loadRequestsFromStorage());
+    }, [dispatch]);
 
     return (
         <div>
