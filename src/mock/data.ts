@@ -1,6 +1,6 @@
-import { Department, Request } from "@/app/types"
+import { TDepartment, TRequest } from "@/app/types"
 
-export let initialRequests : Request[] = [
+export let initialRequests : TRequest[] = [
     {
         id: "1",
         number: 1,
@@ -53,13 +53,13 @@ export let initialRequests : Request[] = [
                 totalPrice: 500,
             }
         ],
-        totalPrice: 0,
+        totalPrice: 555,
         createdAt: "2022-02-01T00:00:00.000Z",
         updatedAt: "2022-02-01T00:00:00.000Z",
     }
 ]
 
-export let initialDepartments : Department[] = [
+export let initialDepartments : TDepartment[] = [
     {
         id: "1",
         name: "Отдел продаж",

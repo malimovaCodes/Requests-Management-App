@@ -5,11 +5,11 @@ import { useDispatch } from 'react-redux';
 import { Form, Input, Button, Select, Checkbox, Tabs, Space, message, Divider, Badge } from 'antd';
 import { PlusOutlined, EditOutlined, DeleteOutlined, SaveOutlined } from "@ant-design/icons";
 
-import { Request, Department } from '@/app/types';
+import { TRequest, TDepartment } from '@/app/types';
 import { addRequest } from '@/store/requestSlice';
 import { AppDispatch } from '@/store/store';
 
-const MOCK_DEPARTMENTS: Department[] = [
+const MOCK_DEPARTMENTS: TDepartment[] = [
     { id: '1', name: 'Отдел продаж' },
     { id: '2', name: 'Отдел маркетинга' },
     { id: '3', name: 'Бухгалтерия' },
@@ -54,13 +54,13 @@ export default function CreateNewRequestPage() {
             return;
         }
 
-        const department: Department = isNewDepartment
+        const department: TDepartment = isNewDepartment
             ? { id: crypto.randomUUID(), name: values.newDepartmentName }
             : MOCK_DEPARTMENTS.find(d => d.id === values.departmentId) || { id: '0', name: 'Неизвестно' };
 
         const initialStatus = values.isApproved ? 'APPROVED' : 'ON_APPROVAL';
 
-        const newRequest: Request = {
+        const newRequest: TRequest = {
             id: crypto.randomUUID(),
             number: Date.now(),
             creatorName: values.creatorName,

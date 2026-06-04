@@ -1,6 +1,6 @@
-import { RequestStatus } from '@/app/types';
+import { TRequestStatus } from '@/app/types';
 
-export const STATUS_FLOW: RequestStatus[] = [
+export const STATUS_FLOW: TRequestStatus[] = [
     'ON_APPROVAL',
     'APPROVED',
     'ORDERED',
@@ -8,7 +8,7 @@ export const STATUS_FLOW: RequestStatus[] = [
     'ISSUED'
 ];
 
-export const getAvailableStatuses = (currentStatus: RequestStatus): RequestStatus[] => {
+export const getAvailableStatuses = (currentStatus: TRequestStatus): TRequestStatus[] => {
     const currentIndex = STATUS_FLOW.indexOf(currentStatus);
     
     if (currentIndex === -1 || currentStatus === 'ISSUED') {

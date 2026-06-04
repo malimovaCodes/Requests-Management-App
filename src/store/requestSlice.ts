@@ -1,10 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 import * as types from "@/app/types"
-import { Request as AppRequest } from "@/app/types";
+import { TRequest } from "@/app/types";
 import { initialRequests } from "../mock/data";
 
 type RequestsState = {
-    requests: AppRequest[];
+    requests: TRequest[];
     isLoading: boolean;
 }
 

@@ -1,11 +1,11 @@
-export type RequestStatus = 
+export type TRequestStatus = 
   | "ON_APPROVAL" 
   | "APPROVED" 
   | "ORDERED" 
   | "ARRIVED" 
   | "ISSUED";
 
-export const STATUS_LABELS: Record<RequestStatus, string> = {
+export const STATUS_LABELS: Record<TRequestStatus, string> = {
   ON_APPROVAL: "На согласовании",
   APPROVED: "Согласовано",
   ORDERED: "Заказано",
@@ -13,12 +13,12 @@ export const STATUS_LABELS: Record<RequestStatus, string> = {
   ISSUED: "Выдано",
 };
 
-export type Department = { 
+export type TDepartment = { 
   id: string; 
   name: string; 
 };
 
-export type OrderItem = { 
+export type TOrderItem = { 
   id: string; 
   name: string; 
   link?: string; 
@@ -28,14 +28,14 @@ export type OrderItem = {
   totalPrice: number; 
 };
 
-export type Request = { 
+export type TRequest = { 
   id: string; 
   number: number; 
   creatorName: string; 
-  department: Department; 
+  department: TDepartment; 
   isApproved: boolean; 
-  status: RequestStatus; 
-  items: OrderItem[]; 
+  status: TRequestStatus; 
+  items: TOrderItem[]; 
   totalPrice: number; 
   createdAt: string; 
   updatedAt: string; 

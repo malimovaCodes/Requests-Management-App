@@ -2,7 +2,7 @@
 import { useSearchParams, useRouter } from 'next/navigation';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store/store';
-import { Request, RequestStatus, STATUS_LABELS } from '@/app/types';
+import { TRequest, TRequestStatus, STATUS_LABELS } from '@/app/types';
 import { 
     Tabs, 
     TabsProps, 
@@ -24,9 +24,9 @@ export function RequestViewContent() {
     const id = searchParams.get('id');
     
     const { requests } = useSelector((state: RootState) => state.requests);
-    const request = requests.find((r: Request) => r.id === id);
+    const request = requests.find((r) => r.id === id);
     
-    const [selectedStatus, setSelectedStatus] = useState<RequestStatus | undefined>();
+    const [selectedStatus, setSelectedStatus] = useState<TRequestStatus | undefined>();
 
     if (!id) {
         return <Empty description="Не указан ID заявки" />;
