@@ -22,6 +22,7 @@ import { loadRequestsFromStorage } from '@/store/requestSlice';
 import { PageHeader } from '@/components/common/Header/PageHeader';
 import { StatusBadge } from '@/components/common/StatusBadge';
 import { Typography } from 'antd';
+import { detailsColumns } from '@/constants/tableColumns';
 
 export function RequestViewContent() {
 const { Title } = Typography;
@@ -212,26 +213,11 @@ const { Title } = Typography;
         </div>
     );
 
-    const itemsColumns = [
-        { 
-            title: '№', 
-            key: 'index',
-            width: 60,
-            render: (_: any, __: any, index: number) => index + 1
-        },
-        { title: 'Наименование', dataIndex: 'name', key: 'name' },
-        { title: 'Ссылка', dataIndex: 'link', key: 'link', render: (link: string) => link ? <a href={link} target="_blank" rel="noopener noreferrer">Открыть</a> : '-' },
-        { title: 'Ед. изм.', dataIndex: 'unit', key: 'unit', width: 100 },
-        { title: 'Кол-во', dataIndex: 'quantity', key: 'quantity', width: 100 },
-        { title: 'Цена', dataIndex: 'price', key: 'price', width: 120, render: (price: number) => `${price} руб.` },
-        { title: 'Сумма', dataIndex: 'totalPrice', key: 'totalPrice', width: 120, render: (total: number) => <b>{total} руб.</b> },
-    ];
-
     const itemsTab = (
         <div>
             <Card>
                 <Table 
-                    columns={itemsColumns} 
+                    columns={detailsColumns} 
                     dataSource={request.items} 
                     rowKey="id" 
                     pagination={false}
