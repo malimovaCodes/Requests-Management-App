@@ -2,7 +2,7 @@
 import { useState, useEffect} from 'react';
 import { useRouter } from 'next/navigation';
 import { useDispatch } from 'react-redux';
-import { Form, Input, Button, Select, Checkbox, Tabs, Space, message, Divider, Badge } from 'antd';
+import { Form, Input, Button, Select, Checkbox, Tabs, Space, message, Divider, Badge, Card } from 'antd';
 import { PlusOutlined, EditOutlined, DeleteOutlined, SaveOutlined } from "@ant-design/icons";
 import { loadRequestsFromStorage } from '@/store/requestSlice';
 
@@ -169,13 +169,9 @@ export default function CreateNewRequestPage() {
     };
 
     const mainContent = (
-        <div style={{
-            padding: 24,
-            backgroundColor: '#fafafa',
-            borderRadius: 8,
-            border: '1px solid #e8e8e8'
-        }}>
-            <Form.Item
+        
+            <Card>
+                <Form.Item
                 name="creatorName"
                 label={<span style={{ fontWeight: 600, color: '#333' }}>* ФИО создающего</span>}
                 rules={[{ required: true, message: 'Введите ФИО' }]}
@@ -256,17 +252,16 @@ export default function CreateNewRequestPage() {
                 <span style={{ marginLeft: 8 }}></span>
                 <span style={{ fontWeight: 600 }}>С флагом</span> — статус <strong>«Согласовано»</strong>.
             </div>
-        </div>
+            </Card>
+        
+            
+            
     );
+    
 
     const itemsContent = (
         <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
-            <div style={{
-                padding: 24,
-                backgroundColor: editingIndex !== null ? '#fff7e6' : '#f5f5f5',
-                borderRadius: 8,
-                border: editingIndex !== null ? '2px solid #faad14' : 'none'
-            }}>
+            <Card>
                 <h3 style={{
                     margin: '0 0 16px 0',
                     color: editingIndex !== null ? '#fa8c16' : 'inherit'
@@ -278,8 +273,8 @@ export default function CreateNewRequestPage() {
 
                 <div style={{
                     display: 'grid',
-                    gridTemplateColumns: '1fr 1fr',
-                    gap: '16px 24px',
+                    gridTemplateColumns: '1fr',
+                    /* gap: '10px', */
                     marginBottom: 16
                 }}>
                     <Form.Item label={<span style={{ fontWeight: 600 }}>* Наименование</span>}>
@@ -354,7 +349,7 @@ export default function CreateNewRequestPage() {
                         </Button>
                     )}
                 </Space>
-            </div>
+            </Card>
 
             <Form.List name="items">
                 {(fields, { remove }) => (
