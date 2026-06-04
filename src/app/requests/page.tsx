@@ -6,7 +6,7 @@ import { Button, Table, Typography } from 'antd';
 import { AppDispatch, RootState } from '@/store/store';
 import { loadRequestsFromStorage } from '@/store/requestSlice';
 import { requestsColumns } from '@/constants/tableColumns';
-import { RequestFilters } from '@/components/requests/RequestFilters';
+import { RequestFilters } from '@/components/requests/list/RequestFilters';
 import { useRequestFilters } from '@/hooks/useRequestFilters';
 
 const { Title } = Typography;

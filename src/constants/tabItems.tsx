@@ -1,21 +1,19 @@
 import { TabsProps } from 'antd';
 import { TRequest } from '@/types';
+import { MainInfoTabContent } from '@/components/requests/view/MainInfoTabContent';
+import { ItemsTabContent } from '@/components/requests/view/ItemsTabContent';
 
 interface GetRequestTabItemsArgs {
     request: TRequest;
-    mainInfoTab: React.ReactNode;
-    itemsTab: React.ReactNode;
 }
 
 export const getRequestTabItems = ({
     request,
-    mainInfoTab,
-    itemsTab,
 }: GetRequestTabItemsArgs): TabsProps['items'] => [
     {
         key: '1',
         label: 'Основная информация',
-        children: mainInfoTab,
+        children: <MainInfoTabContent request={request} />,
     },
     {
         key: '2',
@@ -38,6 +36,6 @@ export const getRequestTabItems = ({
                 )}
             </span>
         ),
-        children: itemsTab,
+        children: <ItemsTabContent request={request} />,
     },
 ];
