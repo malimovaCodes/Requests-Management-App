@@ -1,0 +1,10 @@
+.header {
+    width: '100%';
+    background-color: var(--color-primary);
+
+    &__wrapper {
+        height: 48px;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+}

@@ -1,6 +1,6 @@
 import { TDepartment, TRequest } from "@/app/types"
 
-export let initialRequests : TRequest[] = [
+export const INITIAL_REQUESTS_MOCK : TRequest[] = [
     {
         id: "1",
         number: 1,
@@ -59,7 +59,7 @@ export let initialRequests : TRequest[] = [
     }
 ]
 
-export let initialDepartments : TDepartment[] = [
+export const INITIAL_DEPARTMENTS_MOCK : TDepartment[] = [
     {
         id: "1",
         name: "Отдел продаж",

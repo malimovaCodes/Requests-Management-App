@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import * as types from "@/app/types"
 import { TRequest, TRequestStatus } from "@/app/types";
-import { initialRequests } from "../mock/data";
+import { INITIAL_REQUESTS_MOCK } from "@/constants/mock";
 
 type RequestsState = {
     requests: TRequest[];
@@ -19,7 +19,7 @@ const getInitialRequests = (): TRequest[] => {
             }
         }
     }
-    return initialRequests;
+    return INITIAL_REQUESTS_MOCK;
 };
 
 const initialState: RequestsState = {
@@ -39,10 +39,10 @@ const requestsSlice = createSlice({
                         state.requests = JSON.parse(saved);
                     } catch (e) {
                         console.error('Ошибка чтения localStorage:', e);
-                        state.requests = initialRequests;
+                        state.requests = INITIAL_REQUESTS_MOCK;
                     }
                 } else {
-                    state.requests = initialRequests;
+                    state.requests = INITIAL_REQUESTS_MOCK;
                 }
             }
         },

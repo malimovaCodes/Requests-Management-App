@@ -5,7 +5,8 @@ import ruRU from 'antd/locale/ru_RU';
 import { AntdRegistry } from '@ant-design/nextjs-registry';
 import { makeStore } from '@/store/store';
 import './globals.css';
-import { PageHeader } from '@/components/common/PageHeader';
+import '../styles/variables.css';
+import { PageHeader } from '@/components/common/Header/PageHeader';
 
 export default function RootLayout(
   {

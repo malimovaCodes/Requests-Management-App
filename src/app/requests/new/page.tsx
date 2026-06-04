@@ -10,11 +10,7 @@ import { TRequest, TDepartment } from '@/app/types';
 import { addRequest } from '@/store/requestSlice';
 import { AppDispatch } from '@/store/store';
 
-const MOCK_DEPARTMENTS: TDepartment[] = [
-    { id: '1', name: 'Отдел продаж' },
-    { id: '2', name: 'Отдел маркетинга' },
-    { id: '3', name: 'Бухгалтерия' },
-];
+import { INITIAL_DEPARTMENTS_MOCK } from '@/constants/mock';
 
 export default function CreateNewRequestPage() {
     const [form] = Form.useForm();
@@ -61,7 +57,7 @@ export default function CreateNewRequestPage() {
 
         const department: TDepartment = isNewDepartment
             ? { id: crypto.randomUUID(), name: values.newDepartmentName }
-            : MOCK_DEPARTMENTS.find(d => d.id === values.departmentId) || { id: '0', name: 'Неизвестно' };
+            : INITIAL_DEPARTMENTS_MOCK.find(d => d.id === values.departmentId) || { id: '0', name: 'Неизвестно' };
 
         const initialStatus = values.isApproved ? 'APPROVED' : 'ON_APPROVAL';
 
@@ -195,7 +191,7 @@ export default function CreateNewRequestPage() {
                         <Select
                             placeholder="Выберите отдел из списка"
                             size="large"
-                            options={MOCK_DEPARTMENTS.map(d => ({ value: d.id, label: d.name }))}
+                            options={INITIAL_DEPARTMENTS_MOCK.map(d => ({ value: d.id, label: d.name }))}
                             style={{
                                 width: '100%',
                                 backgroundColor: '#fff',
