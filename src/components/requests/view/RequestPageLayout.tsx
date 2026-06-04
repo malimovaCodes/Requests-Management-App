@@ -1,4 +1,4 @@
-import { Tabs, Button } from 'antd';
+import { Tabs, Button, Typography } from 'antd';
 import { TabsProps } from 'antd';
 import { TRequest, STATUS_LABELS } from '@/types';
 
@@ -7,6 +7,8 @@ interface RequestViewLayoutProps {
     tabItems: TabsProps['items'];
     onBack: () => void;
 }
+
+const { Title } = Typography;
 
 export function RequestViewLayout({ request, tabItems, onBack }: RequestViewLayoutProps) {
     return (
@@ -20,9 +22,8 @@ export function RequestViewLayout({ request, tabItems, onBack }: RequestViewLayo
                 }}
             >
                 <div>
-                    <h1 style={{ margin: 0, fontSize: 24 }}>
-                        Заявка №{request.number}
-                    </h1>
+                    <Title level={2}>Заявка №{request.number}</Title>
+                    
                     <div
                         style={{
                             marginTop: 8,

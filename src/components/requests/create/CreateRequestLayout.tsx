@@ -1,5 +1,4 @@
-import { Form, Tabs, Button, Space, Divider } from 'antd';
-import { TabsProps, FormInstance } from 'antd';
+import { Form, Tabs, Button, Space, Divider, TabsProps, FormInstance, Typography } from 'antd';
 
 interface CreateRequestLayoutProps {
     form: FormInstance;
@@ -7,6 +6,8 @@ interface CreateRequestLayoutProps {
     onFinish: (values: any) => void;
     onCancel: () => void;
 }
+
+const { Title } = Typography;
 
 export function CreateRequestLayout({
     form,
@@ -16,7 +17,7 @@ export function CreateRequestLayout({
 }: CreateRequestLayoutProps) {
     return (
         <div style={{ padding: '20px' }}>
-            <h1>Создание новой заявки</h1>
+            <Title level={2}>Создание новой заявки</Title>
             <Form form={form} onFinish={onFinish} layout="vertical">
                 <Tabs defaultActiveKey="1" items={tabItems} />
                 <Divider />
