@@ -3,12 +3,14 @@ import { useSelector, useDispatch } from "react-redux"
 import type { RootState, AppDispatch } from "@/store/store"
 import { loadRequestsFromStorage } from "@/store/requestSlice"
 import { DatePicker, Table, Select, Space, Button } from "antd";
-import dayjs from "dayjs";
-import isBetween from 'dayjs/plugin/isBetween';
 import { TRequestStatus, STATUS_LABELS } from "@/app/types";
 import { useState, useMemo, useEffect } from "react";
 import { useRouter } from 'next/navigation';
 import { PlusOutlined } from '@ant-design/icons';
+import { formatDate, isDateInRange } from "@/utils/formatDate";
+import Title from "antd/es/skeleton/Title";
+import { Typography } from 'antd';
+
 
 export default function RequestsListPage() {
     const router = useRouter();
@@ -16,11 +18,13 @@ export default function RequestsListPage() {
     const { requests, isLoading } = useSelector((state: RootState) => state.requests);
 
     const { RangePicker } = DatePicker;
+    const { Title } = Typography;
+
 
     const [filters, setFilters] = useState({
         department: undefined as string | undefined,
         status: undefined as TRequestStatus | undefined,
-        dateRange: null as [dayjs.Dayjs, dayjs.Dayjs] | null,
+        dateRange: null as [Date, Date] | null,
     });
 
     const uniqueDepartments = Array.from(new Set(requests.map(r => r.department.name)));
@@ -32,12 +36,11 @@ export default function RequestsListPage() {
 
             let matchDate = true;
             if (filters.dateRange && filters.dateRange.length === 2) {
-                const requestDate = dayjs(request.createdAt);
-
-                const startDate = filters.dateRange[0].startOf('day');
-                const endDate = filters.dateRange[1].endOf('day');
-
-                matchDate = requestDate.isBetween(startDate, endDate, 'day', '[]');
+                matchDate = isDateInRange(
+                    request.createdAt,
+                    filters.dateRange[0],
+                    filters.dateRange[1]
+                );
             }
 
             return matchDepartment && matchStatus && matchDate;
@@ -51,7 +54,7 @@ export default function RequestsListPage() {
     return (
         <>
             <div style={{ padding: '24px', maxWidth: 1200, margin: '0 auto' }}>
-                <h1>Список заявок</h1>
+                <Title>Список заявок</Title>
             <Space wrap style={{ marginBottom: 20, width: '100%' }}>
                 <Select
                     placeholder="Все отделы"
@@ -76,7 +79,16 @@ export default function RequestsListPage() {
 
                 <RangePicker
                     placeholder={['Дата от', 'Дата до']}
-                    onChange={(dates: any) => setFilters({ ...filters, dateRange: (dates as [dayjs.Dayjs, dayjs.Dayjs]) ?? null })}
+                    onChange={(dates) => {
+                        if (dates && dates[0] && dates[1]) {
+                            setFilters({ 
+                                ...filters, 
+                                dateRange: [dates[0].toDate(), dates[1].toDate()] 
+                            });
+                        } else {
+                            setFilters({ ...filters, dateRange: null });
+                        }
+                    }}
                 />
                 <Button
                     type="primary"
@@ -115,6 +127,7 @@ const columns = [
         title: 'Дата',
         dataIndex: 'createdAt',
         key: 'createdAt',
+        render: (date: string) => formatDate(date)
     },
     {
         title: 'ФИО',

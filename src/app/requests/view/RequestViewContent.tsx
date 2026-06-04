@@ -21,8 +21,11 @@ import { updateRequestStatus } from '@/store/requestSlice';
 import { loadRequestsFromStorage } from '@/store/requestSlice';
 import { PageHeader } from '@/components/common/PageHeader';
 import { StatusBadge } from '@/components/common/StatusBadge';
+import { Typography } from 'antd';
 
 export function RequestViewContent() {
+const { Title } = Typography;
+
     const searchParams = useSearchParams();
     const router = useRouter();
     const id = searchParams.get('id');
@@ -280,7 +283,7 @@ export function RequestViewContent() {
                 marginBottom: 24 
             }}>
                 <div>
-                    <h1 style={{ margin: 0, fontSize: 24 }}>Заявка №{request.number}</h1>
+                    <Title level={2}>Заявка №{request.number}</Title>
                     <div style={{ 
                         marginTop: 8,
                         display: 'inline-block',
