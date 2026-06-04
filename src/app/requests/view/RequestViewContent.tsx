@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '@/store/store';
 import { Empty } from 'antd';
 import { getRequestTabItems } from '@/constants/tabItems';
-import { RequestViewLayout } from '@/components/requests/view/RequestViewLayout';
+import { RequestViewLayout } from '@/components/requests/view/RequestPageLayout';
 
 export function RequestViewContent() {
     const searchParams = useSearchParams();

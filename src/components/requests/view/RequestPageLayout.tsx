@@ -11,7 +11,6 @@ interface RequestViewLayoutProps {
 export function RequestViewLayout({ request, tabItems, onBack }: RequestViewLayoutProps) {
     return (
         <div style={{ padding: '24px' }}>
-            {/* Шапка страницы */}
             <div
                 style={{
                     display: 'flex',
@@ -44,11 +43,10 @@ export function RequestViewLayout({ request, tabItems, onBack }: RequestViewLayo
                     onClick={onBack}
                     style={{ borderColor: '#d9d9d9', color: '#666' }}
                 >
-                    ← К списку заявок
+                    - К списку заявок
                 </Button>
             </div>
 
-            {/* Вкладки */}
             <Tabs defaultActiveKey="1" items={tabItems} />
         </div>
     );
