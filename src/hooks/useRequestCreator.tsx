@@ -50,7 +50,7 @@ export function useRequestCreator({
 
             const newRequest = mapFormToRequest({
                 formValues: values,
-                items: itemsFromForm, 
+                items: itemsFromForm,
                 isNewDepartment,
                 departments,
                 grandTotal,

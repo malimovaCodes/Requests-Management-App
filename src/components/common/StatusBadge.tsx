@@ -14,9 +14,5 @@ export function StatusBadge({ status }: StatusBadgeProps) {
         ISSUED: 'green',
     };
 
-    return (
-        <Tag color={colorMap[status]}>
-            {STATUS_LABELS[status]}
-        </Tag>
-    );
+    return <Tag color={colorMap[status]}>{STATUS_LABELS[status]}</Tag>;
 }

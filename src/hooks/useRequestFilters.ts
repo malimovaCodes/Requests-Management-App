@@ -9,11 +9,12 @@ export function useRequestFilters(requests: TRequest[]) {
         dateRange: null as [Date, Date] | null,
     });
 
-    const uniqueDepartments = Array.from(new Set(requests.map(r => r.department.name)));
+    const uniqueDepartments = Array.from(new Set(requests.map((r) => r.department.name)));
 
     const filteredRequests = useMemo(() => {
         return requests.filter((request) => {
-            const matchDepartment = !filters.department || request.department.name === filters.department;
+            const matchDepartment =
+                !filters.department || request.department.name === filters.department;
             const matchStatus = !filters.status || request.status === filters.status;
 
             let matchDate = true;

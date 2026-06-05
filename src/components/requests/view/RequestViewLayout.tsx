@@ -22,16 +22,10 @@ export function RequestViewLayout({ request, tabItems, onBack }: RequestViewLayo
                         Заявка №{request.number}
                     </Title>
 
-                    <div className={styles.statusBadge}>
-                        {STATUS_LABELS[request.status]}
-                    </div>
+                    <div className={styles.statusBadge}>{STATUS_LABELS[request.status]}</div>
                 </div>
 
-                <Button
-                    size="large"
-                    onClick={onBack}
-                    className={styles.backButton}
-                >
+                <Button size="large" onClick={onBack} className={styles.backButton}>
                     К списку заявок
                 </Button>
             </div>

@@ -2,7 +2,7 @@
 
 import { Card, Select, Button, Divider } from 'antd';
 import { TRequestStatus, STATUS_LABELS, STATUS_FLOW } from '@/types';
-import styles from './StatusChanger.module.scss'; 
+import styles from './StatusChanger.module.scss';
 
 interface StatusChangerProps {
     currentStatus: TRequestStatus;
@@ -17,7 +17,7 @@ export function StatusChanger({
     selectedStatus,
     isUpdating,
     onStatusSelect,
-    onStatusChange
+    onStatusChange,
 }: StatusChangerProps) {
     const currentStatusIndex = STATUS_FLOW.indexOf(currentStatus);
     const availableStatuses = STATUS_FLOW.slice(currentStatusIndex + 1);
@@ -46,7 +46,7 @@ export function StatusChanger({
                     Текущий статус: <strong>{STATUS_LABELS[currentStatus]}</strong>
                 </div>
             </div>
-            
+
             <div className={styles.controlsWrapper}>
                 <div className={styles.selectWrapper}>
                     <div className={styles.selectLabel}>Изменить статус на</div>
@@ -55,17 +55,17 @@ export function StatusChanger({
                         value={selectedStatus}
                         onChange={onStatusSelect}
                         placeholder="Выберите следующий статус"
-                        options={availableStatuses.map(status => ({
+                        options={availableStatuses.map((status) => ({
                             value: status,
-                            label: STATUS_LABELS[status]
+                            label: STATUS_LABELS[status],
                         }))}
                         disabled={isUpdating}
                     />
                 </div>
-                
-                <Button 
+
+                <Button
                     className={styles.saveButton}
-                    type="primary" 
+                    type="primary"
                     onClick={onStatusChange}
                     disabled={!selectedStatus || isUpdating}
                     loading={isUpdating}
@@ -73,19 +73,17 @@ export function StatusChanger({
                     Сохранить
                 </Button>
             </div>
-            
+
             <Divider className={styles.customDivider} />
-            
+
             <div className={styles.flowWrapper}>
                 <div className={styles.flowTitle}>Доступные статусы для перехода:</div>
                 <div className={styles.flowItems}>
                     {availableStatuses.map((status, index) => (
                         <span key={status}>
-                            <span className={styles.statusBadge}>
-                                {STATUS_LABELS[status]}
-                            </span>
+                            <span className={styles.statusBadge}>{STATUS_LABELS[status]}</span>
                             {index < availableStatuses.length - 1 && (
-                                <span className={styles.flowArrow}>→</span>
+                                <span className={styles.flowArrow}>-</span>
                             )}
                         </span>
                     ))}

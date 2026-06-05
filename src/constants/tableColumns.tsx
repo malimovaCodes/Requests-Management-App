@@ -1,7 +1,6 @@
-import { formatDate } from "@/utils/formatDate";
-import { TRequestStatus } from "@/types";
-import { StatusBadge } from "../components/common/StatusBadge";
-
+import { formatDate } from '@/utils/formatDate';
+import { TRequestStatus } from '@/types';
+import { StatusBadge } from '../components/common/StatusBadge';
 
 export const requestsColumns = [
     {
@@ -14,7 +13,7 @@ export const requestsColumns = [
         title: 'Дата',
         dataIndex: 'createdAt',
         key: 'createdAt',
-        render: (date: string) => formatDate(date)
+        render: (date: string) => formatDate(date),
     },
     {
         title: 'ФИО',
@@ -30,57 +29,60 @@ export const requestsColumns = [
         title: 'Статус',
         dataIndex: 'status',
         key: 'status',
-        render: (status: TRequestStatus) => <StatusBadge status={status} />
+        render: (status: TRequestStatus) => <StatusBadge status={status} />,
     },
 ];
 
 export const detailsColumns = [
-    { 
-        title: '№', 
+    {
+        title: '№',
         key: 'index',
         width: 60,
-        render: (_: unknown, __: import('@/types').TOrderItem | undefined, index: number) => index + 1
+        render: (_: unknown, __: import('@/types').TOrderItem | undefined, index: number) =>
+            index + 1,
     },
-    { 
-        title: 'Наименование', 
-        dataIndex: 'name', 
-        key: 'name' 
+    {
+        title: 'Наименование',
+        dataIndex: 'name',
+        key: 'name',
     },
-    { 
-        title: 'Ссылка', 
-        dataIndex: 'link', 
-        key: 'link', 
-        render: (link: string) => 
+    {
+        title: 'Ссылка',
+        dataIndex: 'link',
+        key: 'link',
+        render: (link: string) =>
             link ? (
                 <a href={link} target="_blank" rel="noopener noreferrer">
                     Открыть
                 </a>
-            ) : '-' 
+            ) : (
+                '-'
+            ),
     },
-    { 
-        title: 'Ед. изм.', 
-        dataIndex: 'unit', 
-        key: 'unit', 
-        width: 100 
+    {
+        title: 'Ед. изм.',
+        dataIndex: 'unit',
+        key: 'unit',
+        width: 100,
     },
-    { 
-        title: 'Кол-во', 
-        dataIndex: 'quantity', 
-        key: 'quantity', 
-        width: 100 
+    {
+        title: 'Кол-во',
+        dataIndex: 'quantity',
+        key: 'quantity',
+        width: 100,
     },
-    { 
-        title: 'Цена', 
-        dataIndex: 'price', 
-        key: 'price', 
-        width: 120, 
-        render: (price: number) => `${price} руб.` 
+    {
+        title: 'Цена',
+        dataIndex: 'price',
+        key: 'price',
+        width: 120,
+        render: (price: number) => `${price} руб.`,
     },
-    { 
-        title: 'Сумма', 
-        dataIndex: 'totalPrice', 
-        key: 'totalPrice', 
-        width: 120, 
-        render: (total: number) => <b>{total} руб.</b> 
+    {
+        title: 'Сумма',
+        dataIndex: 'totalPrice',
+        key: 'totalPrice',
+        width: 120,
+        render: (total: number) => <b>{total} руб.</b>,
     },
 ];

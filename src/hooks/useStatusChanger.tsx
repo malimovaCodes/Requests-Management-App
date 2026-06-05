@@ -21,8 +21,17 @@ export function useStatusChanger(requestId: string, currentStatus: TRequestStatu
             content: (
                 <div>
                     <p>Вы уверены, что хотите изменить статус?</p>
-                    <div style={{ marginTop: 12, padding: 12, backgroundColor: '#f5f5f5', borderRadius: 4 }}>
-                        <div><strong>Текущий:</strong> {STATUS_LABELS[currentStatus]}</div>
+                    <div
+                        style={{
+                            marginTop: 12,
+                            padding: 12,
+                            backgroundColor: '#f5f5f5',
+                            borderRadius: 4,
+                        }}
+                    >
+                        <div>
+                            <strong>Текущий:</strong> {STATUS_LABELS[currentStatus]}
+                        </div>
                         <div style={{ marginTop: 8 }}>
                             <strong>Новый:</strong>{' '}
                             <span style={{ color: '#1890ff', fontWeight: 600 }}>
@@ -38,10 +47,12 @@ export function useStatusChanger(requestId: string, currentStatus: TRequestStatu
             onOk: async () => {
                 setIsUpdating(true);
                 try {
-                    dispatch(updateRequestStatus({
-                        id: requestId,
-                        status: selectedStatus,
-                    }));
+                    dispatch(
+                        updateRequestStatus({
+                            id: requestId,
+                            status: selectedStatus,
+                        })
+                    );
 
                     message.success(`Статус изменён на "${STATUS_LABELS[selectedStatus]}"`);
                     setSelectedStatus(undefined);

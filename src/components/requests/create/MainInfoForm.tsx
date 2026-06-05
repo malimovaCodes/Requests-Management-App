@@ -1,7 +1,7 @@
 import { Form, Input, Select, Checkbox, Space, Card } from 'antd';
 import { FormInstance } from 'antd';
 import { TDepartment } from '@/types';
-import styles from './MainInfoForm.module.scss'; 
+import styles from './MainInfoForm.module.scss';
 
 interface MainInfoFormProps {
     form: FormInstance;
@@ -44,7 +44,7 @@ export function MainInfoForm({
                             <Select
                                 placeholder="Выберите отдел из списка"
                                 size="large"
-                                options={departments.map(d => ({ value: d.id, label: d.name }))}
+                                options={departments.map((d) => ({ value: d.id, label: d.name }))}
                                 className={styles.selectFullWidth}
                             />
                         </Form.Item>
@@ -80,18 +80,15 @@ export function MainInfoForm({
                 </Space>
             </Form.Item>
 
-            <Form.Item
-                name="isApproved"
-                valuePropName="checked"
-                className={styles.mb2}
-            >
+            <Form.Item name="isApproved" valuePropName="checked" className={styles.mb2}>
                 <Checkbox>Заявка согласована</Checkbox>
             </Form.Item>
 
             <div className={styles.infoBox}>
-                <span className={styles.textBold}>Без флага</span> — статус <strong>«На согласовании»</strong>.
-                <span className={styles.spacer}></span>
-                <span className={styles.textBold}>С флагом</span> — статус <strong>«Согласовано»</strong>.
+                <span className={styles.textBold}>Без флага</span> — статус{' '}
+                <strong>«На согласовании»</strong>.<span className={styles.spacer}></span>
+                <span className={styles.textBold}>С флагом</span> — статус{' '}
+                <strong>«Согласовано»</strong>.
             </div>
         </Card>
     );

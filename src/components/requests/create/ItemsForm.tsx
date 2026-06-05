@@ -1,7 +1,7 @@
 import { Form, Input, Select, Button, Space, Card, FormInstance } from 'antd';
 import { PlusOutlined, SaveOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import { TOrderItem } from '@/types';
-import styles from './ItemsForm.module.scss'; 
+import styles from './ItemsForm.module.scss';
 
 interface ItemsFormProps {
     form: FormInstance;
@@ -73,9 +73,7 @@ export function ItemsForm({
                 )}
             </Form.List>
 
-            {items.length > 0 && (
-                <ItemsTotal grandTotal={grandTotal} />
-            )}
+            {items.length > 0 && <ItemsTotal grandTotal={grandTotal} />}
         </div>
     );
 }
@@ -268,9 +266,7 @@ function ItemsTotal({ grandTotal }: ItemsTotalProps) {
     return (
         <div className={styles.totalContainer}>
             <span className={styles.totalLabel}>Итоговая сумма:</span>
-            <span className={styles.totalValue}>
-                {grandTotal.toFixed(2)} руб.
-            </span>
+            <span className={styles.totalValue}>{grandTotal.toFixed(2)} руб.</span>
         </div>
     );
 }

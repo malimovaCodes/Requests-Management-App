@@ -1,19 +1,19 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { TRequest, TRequestStatus } from "@/types";
-import { INITIAL_REQUESTS_MOCK } from "@/constants/mock";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { TRequest, TRequestStatus } from '@/types';
+import { INITIAL_REQUESTS_MOCK } from '@/constants/mock';
 
 type RequestsState = {
     requests: TRequest[];
     isLoading: boolean;
-}
+};
 
 const initialState: RequestsState = {
     requests: [],
     isLoading: false,
-}
+};
 
 const requestsSlice = createSlice({
-    name: "requests",
+    name: 'requests',
     initialState,
     reducers: {
         loadRequestsFromStorage: (state) => {
@@ -37,8 +37,11 @@ const requestsSlice = createSlice({
                 localStorage.setItem('requests', JSON.stringify(state.requests));
             }
         },
-        updateRequestStatus: (state, action: PayloadAction<{ id: string; status: TRequestStatus }>) => {
-            const request = state.requests.find(r => r.id === action.payload.id);
+        updateRequestStatus: (
+            state,
+            action: PayloadAction<{ id: string; status: TRequestStatus }>
+        ) => {
+            const request = state.requests.find((r) => r.id === action.payload.id);
             if (request) {
                 request.status = action.payload.status;
                 request.updatedAt = new Date().toISOString();
@@ -47,7 +50,7 @@ const requestsSlice = createSlice({
                 }
             }
         },
-    }
+    },
 });
 
 export default requestsSlice.reducer;

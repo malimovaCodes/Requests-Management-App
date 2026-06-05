@@ -31,7 +31,10 @@ export const mapFormToRequest = ({
 }: MapFormToRequestArgs): TRequest => {
     const department: TDepartment = isNewDepartment
         ? { id: crypto.randomUUID(), name: formValues.newDepartmentName || '' }
-        : departments.find(d => d.id === formValues.departmentId) || { id: '0', name: 'Неизвестно' };
+        : departments.find((d) => d.id === formValues.departmentId) || {
+              id: '0',
+              name: 'Неизвестно',
+          };
 
     const initialStatus = formValues.isApproved ? 'APPROVED' : 'ON_APPROVAL';
 

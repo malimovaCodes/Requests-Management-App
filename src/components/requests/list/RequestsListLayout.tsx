@@ -57,7 +57,7 @@ export function RequestsListLayout({
                 rowKey="id"
                 onRow={(record) => ({
                     onClick: () => onRowClick(record),
-                    style: { cursor: 'pointer' }
+                    style: { cursor: 'pointer' },
                 })}
             />
         </>

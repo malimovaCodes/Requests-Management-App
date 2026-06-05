@@ -7,9 +7,7 @@ interface GetRequestTabItemsArgs {
     request: TRequest;
 }
 
-export const getRequestTabItems = ({
-    request,
-}: GetRequestTabItemsArgs): TabsProps['items'] => [
+export const getRequestTabItems = ({ request }: GetRequestTabItemsArgs): TabsProps['items'] => [
     {
         key: '1',
         label: 'Основная информация',

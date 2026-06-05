@@ -5,15 +5,15 @@ export const STATUS_FLOW: TRequestStatus[] = [
     'APPROVED',
     'ORDERED',
     'ARRIVED',
-    'ISSUED'
+    'ISSUED',
 ];
 
 export const getAvailableStatuses = (currentStatus: TRequestStatus): TRequestStatus[] => {
     const currentIndex = STATUS_FLOW.indexOf(currentStatus);
-    
+
     if (currentIndex === -1 || currentStatus === 'ISSUED') {
         return [];
     }
-    
+
     return STATUS_FLOW.slice(currentIndex + 1);
 };

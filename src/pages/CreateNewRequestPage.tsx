@@ -22,7 +22,7 @@ export function CreateNewRequestPage() {
         link: '',
         unit: '',
         quantity: 0,
-        price: 0
+        price: 0,
     });
 
     const [editingIndex, setEditingIndex] = useState<number | null>(null);
@@ -51,7 +51,7 @@ export function CreateNewRequestPage() {
         }
 
         const currentItems = form.getFieldValue('items') || [];
-    let updatedItems: import('@/types').TOrderItem[];
+        let updatedItems: import('@/types').TOrderItem[];
 
         if (editingIndex !== null) {
             updatedItems = [...currentItems];
@@ -62,7 +62,7 @@ export function CreateNewRequestPage() {
                 unit: newItem.unit || 'шт.',
                 quantity: newItem.quantity,
                 price: newItem.price,
-                totalPrice: newItem.quantity * newItem.price
+                totalPrice: newItem.quantity * newItem.price,
             };
             message.success('Позиция обновлена');
         } else {
@@ -75,8 +75,8 @@ export function CreateNewRequestPage() {
                     unit: newItem.unit || 'шт.',
                     quantity: newItem.quantity,
                     price: newItem.price,
-                    totalPrice: newItem.quantity * newItem.price
-                }
+                    totalPrice: newItem.quantity * newItem.price,
+                },
             ];
             message.success('Позиция добавлена');
         }
@@ -99,7 +99,7 @@ export function CreateNewRequestPage() {
             link: '',
             unit: '',
             quantity: 0,
-            price: 0
+            price: 0,
         });
     };
 
@@ -113,7 +113,7 @@ export function CreateNewRequestPage() {
                 link: itemToEdit.link || '',
                 unit: itemToEdit.unit,
                 quantity: itemToEdit.quantity,
-                price: itemToEdit.price
+                price: itemToEdit.price,
             });
 
             setEditingIndex(index);
@@ -140,7 +140,10 @@ export function CreateNewRequestPage() {
                 <span>
                     Состав заказа
                     {items.length > 0 && (
-                        <Badge count={items.length} style={{ backgroundColor: '#1890ff', marginLeft: 8, fontSize: 12 }} />
+                        <Badge
+                            count={items.length}
+                            style={{ backgroundColor: '#1890ff', marginLeft: 8, fontSize: 12 }}
+                        />
                     )}
                 </span>
             ),

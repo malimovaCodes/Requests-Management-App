@@ -8,8 +8,10 @@ interface MainInfoTabContentProps {
 }
 
 export function MainInfoTabContent({ request }: MainInfoTabContentProps) {
-    const { selectedStatus, setSelectedStatus, isUpdating, handleStatusChange } = 
-        useStatusChanger(request.id, request.status);
+    const { selectedStatus, setSelectedStatus, isUpdating, handleStatusChange } = useStatusChanger(
+        request.id,
+        request.status
+    );
 
     return (
         <div>

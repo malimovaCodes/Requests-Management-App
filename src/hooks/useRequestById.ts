@@ -4,7 +4,7 @@ import { RootState } from '@/store/store';
 
 export function useRequestById() {
     const searchParams = useSearchParams();
-    
+
     const id = searchParams?.get('id') ?? null;
 
     const { requests } = useSelector((state: RootState) => state.requests);

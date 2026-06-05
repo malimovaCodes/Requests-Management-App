@@ -15,7 +15,7 @@ export function RequestInfoCard({ request }: RequestInfoCardProps) {
                     <div className={styles.label}>Номер заявки</div>
                     <div className="text-base font-semibold">№{request.number}</div>
                 </div>
-                
+
                 <div>
                     <div className={styles.label}>Дата создания</div>
                     <div className={styles.value}>{formatDateTime(request.createdAt)}</div>
@@ -33,9 +33,7 @@ export function RequestInfoCard({ request }: RequestInfoCardProps) {
 
                 <div>
                     <div className={styles.label}>Текущий статус</div>
-                    <div className={styles.valueHighlighted}>
-                        {STATUS_LABELS[request.status]}
-                    </div>
+                    <div className={styles.valueHighlighted}>{STATUS_LABELS[request.status]}</div>
                 </div>
 
                 <div>

@@ -13,7 +13,8 @@ export function RequestsListPage() {
     const dispatch = useDispatch<AppDispatch>();
     const { requests, isLoading } = useSelector((state: RootState) => state.requests);
 
-    const { filters, setFilters, filteredRequests, uniqueDepartments } = useRequestFilters(requests);
+    const { filters, setFilters, filteredRequests, uniqueDepartments } =
+        useRequestFilters(requests);
 
     useEffect(() => {
         dispatch(loadRequestsFromStorage());

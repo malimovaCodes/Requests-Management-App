@@ -16,16 +16,12 @@ export const formatDateTime = (date: string | Date): string => {
     return `${day}.${month}.${year} ${hours}:${minutes}`;
 };
 
-export const isDateInRange = (
-    date: string | Date,
-    startDate: Date,
-    endDate: Date
-): boolean => {
+export const isDateInRange = (date: string | Date, startDate: Date, endDate: Date): boolean => {
     const targetDate = new Date(date);
-    
+
     const target = new Date(targetDate.getFullYear(), targetDate.getMonth(), targetDate.getDate());
     const start = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate());
     const end = new Date(endDate.getFullYear(), endDate.getMonth(), endDate.getDate());
-    
+
     return target >= start && target <= end;
 };

@@ -24,7 +24,7 @@ export function RequestFilters({ filters, onFilterChange, departments }: Request
                 allowClear
                 value={filters.department}
                 onChange={(value) => onFilterChange({ ...filters, department: value })}
-                options={departments.map(dept => ({ value: dept, label: dept }))}
+                options={departments.map((dept) => ({ value: dept, label: dept }))}
             />
 
             <Select
@@ -35,7 +35,7 @@ export function RequestFilters({ filters, onFilterChange, departments }: Request
                 onChange={(value) => onFilterChange({ ...filters, status: value })}
                 options={Object.entries(STATUS_LABELS).map(([key, label]) => ({
                     value: key,
-                    label
+                    label,
                 }))}
             />
 
@@ -43,9 +43,9 @@ export function RequestFilters({ filters, onFilterChange, departments }: Request
                 placeholder={['Дата от', 'Дата до']}
                 onChange={(dates) => {
                     if (dates && dates[0] && dates[1]) {
-                        onFilterChange({ 
-                            ...filters, 
-                            dateRange: [dates[0].toDate(), dates[1].toDate()] 
+                        onFilterChange({
+                            ...filters,
+                            dateRange: [dates[0].toDate(), dates[1].toDate()],
                         });
                     } else {
                         onFilterChange({ ...filters, dateRange: null });
