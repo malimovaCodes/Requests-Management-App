@@ -6,9 +6,11 @@ import { AntdRegistry } from '@ant-design/nextjs-registry';
 import { makeStore } from '@/store/store';
 import './globals.css';
 import { PageHeader } from '@/components/common/Header/PageHeader';
+import { useMemo } from 'react';
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-    const store = makeStore();
+    const store = useMemo(() => makeStore(), []);
+
     return (
         <html lang="ru">
             <body className="body">

@@ -28,3 +28,5 @@ export function RequestViewPage() {
         />
     );
 }
+
+export default RequestViewPage;

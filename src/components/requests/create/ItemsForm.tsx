@@ -1,3 +1,4 @@
+ 'use client';
 import { Form, Input, Select, Button, Space, Card, FormInstance } from 'antd';
 import { PlusOutlined, SaveOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import { TOrderItem } from '@/types';

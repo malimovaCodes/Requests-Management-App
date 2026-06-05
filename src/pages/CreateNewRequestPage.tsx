@@ -173,3 +173,5 @@ export function CreateNewRequestPage() {
         />
     );
 }
+
+export default CreateNewRequestPage;

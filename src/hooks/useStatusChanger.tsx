@@ -1,3 +1,4 @@
+'use client';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { message, Modal } from 'antd';
@@ -57,6 +58,7 @@ export function useStatusChanger(requestId: string, currentStatus: TRequestStatu
                     message.success(`Статус изменён на "${STATUS_LABELS[selectedStatus]}"`);
                     setSelectedStatus(undefined);
                 } catch (error) {
+                    console.error('Status update error:', error);
                     message.error('Ошибка при изменении статуса');
                 } finally {
                     setIsUpdating(false);

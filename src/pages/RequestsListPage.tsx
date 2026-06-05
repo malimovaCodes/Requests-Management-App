@@ -34,3 +34,5 @@ export function RequestsListPage() {
         </div>
     );
 }
+
+export default RequestsListPage;

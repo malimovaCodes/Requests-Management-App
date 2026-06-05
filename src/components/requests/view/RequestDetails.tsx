@@ -1,3 +1,4 @@
+ 'use client';
 import { TRequest } from '@/types';
 import { RequestInfoCard } from './RequestInfoCard';
 import { StatusChanger } from './StatusChanger';

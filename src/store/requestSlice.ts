@@ -17,6 +17,7 @@ const requestsSlice = createSlice({
     initialState,
     reducers: {
         loadRequestsFromStorage: (state) => {
+            state.isLoading = true;
             if (typeof window !== 'undefined') {
                 const saved = localStorage.getItem('requests');
                 if (saved) {
@@ -30,12 +31,15 @@ const requestsSlice = createSlice({
                     state.requests = INITIAL_REQUESTS_MOCK;
                 }
             }
+            state.isLoading = false;
         },
         addRequest: (state, action: PayloadAction<TRequest>) => {
+            state.isLoading = true;
             state.requests.push(action.payload);
             if (typeof window !== 'undefined') {
                 localStorage.setItem('requests', JSON.stringify(state.requests));
             }
+            state.isLoading = false;
         },
         updateRequestStatus: (
             state,
@@ -43,11 +47,13 @@ const requestsSlice = createSlice({
         ) => {
             const request = state.requests.find((r) => r.id === action.payload.id);
             if (request) {
+                state.isLoading = true;
                 request.status = action.payload.status;
                 request.updatedAt = new Date().toISOString();
                 if (typeof window !== 'undefined') {
                     localStorage.setItem('requests', JSON.stringify(state.requests));
                 }
+                state.isLoading = false;
             }
         },
     },

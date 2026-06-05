@@ -1,3 +1,4 @@
+ 'use client';
 import { Typography, Table, Button } from 'antd';
 import { TRequest, TRequestStatus } from '@/types';
 import { requestsColumns } from '@/constants/tableColumns';

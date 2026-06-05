@@ -1,3 +1,4 @@
+ 'use client';
 import { Form, Input, Select, Checkbox, Space, Card } from 'antd';
 import { FormInstance } from 'antd';
 import { TDepartment } from '@/types';

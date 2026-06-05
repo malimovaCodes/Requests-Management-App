@@ -1,3 +1,4 @@
+ 'use client';
 import { Form, Tabs, Button, Space, Divider, TabsProps, FormInstance, Typography } from 'antd';
 
 interface CreateRequestLayoutProps {

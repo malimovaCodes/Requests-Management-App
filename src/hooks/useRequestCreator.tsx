@@ -1,3 +1,4 @@
+'use client';
 import { useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { useDispatch } from 'react-redux';
@@ -44,6 +45,7 @@ export function useRequestCreator({
             try {
                 await form.validateFields();
             } catch (error) {
+                console.error('Validation error:', error);
                 message.error('Пожалуйста, заполните все обязательные поля');
                 return;
             }
