@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { FormInstance, message } from 'antd';
 import { AppDispatch } from '@/store/store';
 import { addRequest } from '@/store/requestSlice';
-import { TDepartment } from '@/types';
+import { TDepartment, TFormValues } from '@/types';
 import { mapFormToRequest } from '@/utils/requestMapper';
 
 interface UseRequestCreatorArgs {
@@ -24,8 +24,15 @@ export function useRequestCreator({
     const dispatch = useDispatch<AppDispatch>();
 
     const handleSubmit = useCallback(
-        async (values: any) => {
-            const itemsFromForm = form.getFieldValue('items') || [];
+        async (values: TFormValues) => {
+            const itemsFromForm: Array<{
+                id?: string;
+                name: string;
+                link?: string;
+                unit: string;
+                quantity: number;
+                price: number;
+            }> = form.getFieldValue('items') || [];
 
             console.log('Items из формы:', itemsFromForm);
 
@@ -37,7 +44,7 @@ export function useRequestCreator({
             try {
                 await form.validateFields();
             } catch (error) {
-                message.error('Пожалуйста, заполните все обязательные поля!');
+                message.error('Пожалуйста, заполните все обязательные поля');
                 return;
             }
 

@@ -1,7 +1,7 @@
 import { TabsProps } from 'antd';
 import { TRequest } from '@/types';
 import { MainInfoTabContent } from '@/components/requests/view/RequestDetails';
-import { ItemsTabContent } from '@/components/requests/view/OrderItemsTable';
+import { OrderItemsTable } from '@/components/requests/view/OrderItemsTable';
 
 interface GetRequestTabItemsArgs {
     request: TRequest;
@@ -36,6 +36,6 @@ export const getRequestTabItems = ({
                 )}
             </span>
         ),
-        children: <ItemsTabContent request={request} />,
+        children: <OrderItemsTable request={request} />,
     },
 ];

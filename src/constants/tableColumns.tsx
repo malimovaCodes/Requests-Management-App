@@ -1,5 +1,5 @@
 import { formatDate } from "@/utils/formatDate";
-import { STATUS_LABELS, TRequestStatus } from "@/types";
+import { TRequestStatus } from "@/types";
 import { StatusBadge } from "../components/common/StatusBadge";
 
 
@@ -39,7 +39,7 @@ export const detailsColumns = [
         title: '№', 
         key: 'index',
         width: 60,
-        render: (_: any, __: any, index: number) => index + 1
+        render: (_: unknown, __: import('@/types').TOrderItem | undefined, index: number) => index + 1
     },
     { 
         title: 'Наименование', 

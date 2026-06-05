@@ -89,9 +89,9 @@ export function MainInfoForm({
             </Form.Item>
 
             <div className={styles.infoBox}>
-                <span className={styles.textBold}>Без флага</span> — статус <strong>"На согласовании"</strong>.
+                <span className={styles.textBold}>Без флага</span> — статус <strong>«На согласовании»</strong>.
                 <span className={styles.spacer}></span>
-                <span className={styles.textBold}>С флагом</span> — статус <strong>"Согласовано"</strong>.
+                <span className={styles.textBold}>С флагом</span> — статус <strong>«Согласовано»</strong>.
             </div>
         </Card>
     );

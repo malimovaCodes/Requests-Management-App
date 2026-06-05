@@ -27,7 +27,6 @@ export function ItemsForm({
     newItem,
     setNewItem,
     editingIndex,
-    setEditingIndex,
     handleAddItem,
     handleEditItem,
     handleCancelEdit,
@@ -186,7 +185,7 @@ function AddPositionForm({
 
 interface PositionCardProps {
     index: number;
-    item: any;
+    item: Partial<import('@/types').TOrderItem> | undefined;
     quantity: number;
     price: number;
     total: number;

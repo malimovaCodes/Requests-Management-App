@@ -1,5 +1,4 @@
-import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
-import * as types from "@/types"
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { TRequest, TRequestStatus } from "@/types";
 import { INITIAL_REQUESTS_MOCK } from "@/constants/mock";
 
@@ -7,20 +6,6 @@ type RequestsState = {
     requests: TRequest[];
     isLoading: boolean;
 }
-
-const getInitialRequests = (): TRequest[] => {
-    if (typeof window !== 'undefined') {
-        const saved = localStorage.getItem('requests');
-        if (saved) {
-            try {
-                return JSON.parse(saved);
-            } catch (e) {
-                console.error('Ошибка чтения localStorage:', e);
-            }
-        }
-    }
-    return INITIAL_REQUESTS_MOCK;
-};
 
 const initialState: RequestsState = {
     requests: [],

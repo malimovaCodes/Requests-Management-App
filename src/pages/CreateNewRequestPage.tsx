@@ -30,7 +30,7 @@ export function CreateNewRequestPage() {
     const router = useRouter();
     const dispatch = useDispatch<AppDispatch>();
 
-    const items = Form.useWatch('items', form) || [];
+    const items = (Form.useWatch('items', form) as import('@/types').TOrderItem[]) || [];
     const [grandTotal, setGrandTotal] = useState(0);
 
     useEffect(() => {
@@ -51,7 +51,7 @@ export function CreateNewRequestPage() {
         }
 
         const currentItems = form.getFieldValue('items') || [];
-        let updatedItems: any[];
+    let updatedItems: import('@/types').TOrderItem[];
 
         if (editingIndex !== null) {
             updatedItems = [...currentItems];
@@ -83,7 +83,7 @@ export function CreateNewRequestPage() {
 
         form.setFieldValue('items', updatedItems);
 
-        const newTotal = updatedItems.reduce((sum: number, item: any) => {
+        const newTotal = updatedItems.reduce((sum: number, item: import('@/types').TOrderItem) => {
             return sum + (Number(item.quantity) * Number(item.price) || 0);
         }, 0);
         setGrandTotal(newTotal);

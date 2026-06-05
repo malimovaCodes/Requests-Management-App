@@ -48,3 +48,10 @@ export type TRequest = {
   createdAt: string; 
   updatedAt: string; 
 };
+
+export type TFormValues = {
+  creatorName: string;
+  departmentId?: string;
+  newDepartmentName?: string;
+  isApproved?: boolean;
+};

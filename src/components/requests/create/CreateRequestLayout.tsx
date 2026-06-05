@@ -3,7 +3,7 @@ import { Form, Tabs, Button, Space, Divider, TabsProps, FormInstance, Typography
 interface CreateRequestLayoutProps {
     form: FormInstance;
     tabItems: TabsProps['items'];
-    onFinish: (values: any) => void;
+    onFinish: (values: import('@/types').TFormValues) => void;
     onCancel: () => void;
 }
 
