@@ -1,19 +1,14 @@
 'use client';
 
-import { useSearchParams, useRouter } from 'next/navigation';
-import { useSelector } from 'react-redux';
-import { RootState } from '@/store/store';
+import { useRouter } from 'next/navigation';
 import { Empty } from 'antd';
 import { getRequestTabItems } from '@/constants/tabItems';
 import { RequestViewLayout } from '@/components/requests/view/RequestPageLayout';
+import { useRequestById } from '@/hooks/useRequestById';
 
-export function RequestViewContent() {
-    const searchParams = useSearchParams();
+export function RequestViewPage() {
     const router = useRouter();
-    const id = searchParams.get('id');
-
-    const { requests } = useSelector((state: RootState) => state.requests);
-    const request = requests.find((r) => r.id === id);
+    const { id, request } = useRequestById();
 
     if (!id) {
         return <Empty description="Не указан ID заявки" />;

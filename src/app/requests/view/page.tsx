@@ -1,12 +1,12 @@
 'use client';
 
 import { Suspense } from 'react';
-import { RequestViewContent } from './RequestViewContent';
+import { RequestViewPage } from '@/pages/RequestViewPage';
 
-export default function RequestViewPage() {
+export default function Page() {
     return (
         <Suspense fallback={<div>Загрузка заявки</div>}>
-            <RequestViewContent />
+            <RequestViewPage />
         </Suspense>
     );
 }
