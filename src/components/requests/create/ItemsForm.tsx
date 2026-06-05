@@ -1,6 +1,7 @@
 import { Form, Input, Select, Button, Space, Card, FormInstance } from 'antd';
 import { PlusOutlined, SaveOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import { TOrderItem } from '@/types';
+import styles from './ItemsForm.module.scss'; 
 
 interface ItemsFormProps {
     form: FormInstance;
@@ -34,7 +35,7 @@ export function ItemsForm({
     items,
 }: ItemsFormProps) {
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
+        <div className="flex flex-col gap-6">
             <AddPositionForm
                 newItem={newItem}
                 setNewItem={setNewItem}
@@ -95,25 +96,16 @@ function AddPositionForm({
     handleAddItem,
     handleCancelEdit,
 }: AddPositionFormProps) {
+    const isEditing = editingIndex !== null;
+
     return (
         <Card>
-            <h3
-                style={{
-                    margin: '0 0 16px 0',
-                    color: editingIndex !== null ? '#fa8c16' : 'inherit',
-                }}
-            >
-                {editingIndex !== null ? 'Редактирование позиции' : 'Добавление новой позиции'}
+            <h3 className={isEditing ? styles.formTitle_editing : styles.formTitle}>
+                {isEditing ? 'Редактирование позиции' : 'Добавление новой позиции'}
             </h3>
 
-            <div
-                style={{
-                    display: 'grid',
-                    gridTemplateColumns: '1fr',
-                    marginBottom: 16,
-                }}
-            >
-                <Form.Item label={<span style={{ fontWeight: 600 }}>* Наименование</span>}>
+            <div className="grid grid-cols-1 mb-4">
+                <Form.Item label={<span className="font-semibold">* Наименование</span>}>
                     <Input
                         placeholder="Наименование позиции"
                         value={newItem.name}
@@ -129,9 +121,9 @@ function AddPositionForm({
                     />
                 </Form.Item>
 
-                <Form.Item label={<span style={{ fontWeight: 600 }}>Единицы измерения</span>}>
+                <Form.Item label={<span className="font-semibold">Единицы измерения</span>}>
                     <Select
-                        style={{ width: 100 }}
+                        className="w-[100px]"
                         options={[
                             { value: 'шт.', label: 'шт.' },
                             { value: 'кг.', label: 'кг.' },
@@ -142,7 +134,7 @@ function AddPositionForm({
                     />
                 </Form.Item>
 
-                <Form.Item label={<span style={{ fontWeight: 600 }}>Количество</span>}>
+                <Form.Item label={<span className="font-semibold">Количество</span>}>
                     <Input
                         type="number"
                         placeholder="0"
@@ -153,7 +145,7 @@ function AddPositionForm({
                     />
                 </Form.Item>
 
-                <Form.Item label={<span style={{ fontWeight: 600 }}>Цена (за 1 шт.)</span>}>
+                <Form.Item label={<span className="font-semibold">Цена (за 1 шт.)</span>}>
                     <Space.Compact>
                         <Input
                             type="number"
@@ -171,7 +163,7 @@ function AddPositionForm({
                     <Input
                         disabled
                         value={`${(newItem.quantity * newItem.price).toFixed(2)} руб.`}
-                        style={{ backgroundColor: '#fff' }}
+                        className="bg-white"
                     />
                 </Form.Item>
             </div>
@@ -218,24 +210,10 @@ function PositionCard({
     deleteDisabled,
 }: PositionCardProps) {
     return (
-        <div
-            style={{
-                padding: 16,
-                backgroundColor: isEditing ? '#fff7e6' : '#fff',
-                border: isEditing ? '2px solid #faad14' : '1px solid #e8e8e8',
-                borderRadius: 8,
-                marginBottom: 12,
-            }}
-        >
-            <div
-                style={{
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    marginBottom: 8,
-                }}
-            >
-                <div style={{ fontWeight: 600, fontSize: 14 }}>
-                    <span style={{ color: '#1890ff', marginRight: 8 }}>{index + 1}</span>
+        <div className={`${styles.positionCard} ${isEditing ? styles.positionCard_editing : ''}`}>
+            <div className={styles.cardHeader}>
+                <div className={styles.itemName}>
+                    <span className={styles.itemIndex}>{index + 1}</span>
                     {item?.name || `Позиция ${index + 1}`}
                 </div>
                 <Space>
@@ -261,30 +239,22 @@ function PositionCard({
                 </Space>
             </div>
 
-            <div
-                style={{
-                    display: 'flex',
-                    gap: 24,
-                    fontSize: 12,
-                    color: '#666',
-                    marginTop: 8,
-                }}
-            >
+            <div className={styles.detailsContainer}>
                 <div>
-                    <div style={{ fontSize: 10, color: '#999', marginBottom: 4 }}>ЕД. ИЗМ.</div>
+                    <div className={styles.detailLabel}>Ед. изм.</div>
                     <div>{item?.unit || '-'}</div>
                 </div>
                 <div>
-                    <div style={{ fontSize: 10, color: '#999', marginBottom: 4 }}>КОЛ-ВО</div>
+                    <div className={styles.detailLabel}>Кол-во</div>
                     <div>{quantity}</div>
                 </div>
                 <div>
-                    <div style={{ fontSize: 10, color: '#999', marginBottom: 4 }}>ЦЕНА</div>
+                    <div className={styles.detailLabel}>Цена</div>
                     <div>{price} ₽</div>
                 </div>
                 <div>
-                    <div style={{ fontSize: 10, color: '#999', marginBottom: 4 }}>СТОИМОСТЬ</div>
-                    <div style={{ color: '#1890ff', fontWeight: 600 }}>{total.toFixed(2)} ₽</div>
+                    <div className={styles.detailLabel}>Стоимость</div>
+                    <div className={styles.totalValue}>{total.toFixed(2)} ₽</div>
                 </div>
             </div>
         </div>
@@ -297,17 +267,9 @@ interface ItemsTotalProps {
 
 function ItemsTotal({ grandTotal }: ItemsTotalProps) {
     return (
-        <div
-            style={{
-                padding: 16,
-                backgroundColor: '#e6f7ff',
-                borderRadius: 8,
-                textAlign: 'right',
-                fontSize: 16,
-            }}
-        >
-            <span style={{ color: '#666', marginRight: 16 }}>Итоговая сумма:</span>
-            <span style={{ color: '#1890ff', fontWeight: 700, fontSize: 20 }}>
+        <div className={styles.totalContainer}>
+            <span className={styles.totalLabel}>Итоговая сумма:</span>
+            <span className={styles.totalValue}>
                 {grandTotal.toFixed(2)} руб.
             </span>
         </div>

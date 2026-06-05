@@ -2,6 +2,7 @@ import { Typography, Table, Button } from 'antd';
 import { TRequest, TRequestStatus } from '@/types';
 import { requestsColumns } from '@/constants/tableColumns';
 import { RequestFilters } from '@/components/requests/list/RequestFilters';
+import styles from '@/components/requests/list/RequestList.module.scss';
 
 const { Title } = Typography;
 
@@ -38,11 +39,12 @@ export function RequestsListLayout({
                 departments={departments}
             />
 
-            <div style={{ marginBottom: 16 }}>
+            <div>
                 <Button
                     type="primary"
                     size="large"
                     onClick={onCreateClick}
+                    className={styles['button']}
                 >
                     Создать заявку
                 </Button>

@@ -1,5 +1,8 @@
+'use client';
+
 import { Card, Select, Button, Divider } from 'antd';
 import { TRequestStatus, STATUS_LABELS, STATUS_FLOW } from '@/types';
+import styles from './StatusChanger.module.scss'; 
 
 interface StatusChangerProps {
     currentStatus: TRequestStatus;
@@ -22,16 +25,9 @@ export function StatusChanger({
     if (currentStatus === 'ISSUED') {
         return (
             <Card>
-                <div style={{ 
-                    padding: '16px',
-                    backgroundColor: '#fff7e6', 
-                    borderRadius: 4,
-                    color: '#fa8c16',
-                    textAlign: 'center',
-                    border: '1px solid #ffd591'
-                }}>
+                <div className={styles.issuedWarning}>
                     <strong>Заявка закрыта</strong>
-                    <div style={{ marginTop: 8, fontSize: 14 }}>
+                    <div className={styles.issuedText}>
                         Изменение статуса недоступно (товар выдан)
                     </div>
                 </div>
@@ -45,20 +41,20 @@ export function StatusChanger({
 
     return (
         <Card title="Изменение статуса">
-            <div style={{ marginBottom: 16 }}>
-                <div style={{ color: '#666', fontSize: 14, marginBottom: 8 }}>
+            <div className={styles.currentStatusWrapper}>
+                <div className={styles.currentStatusText}>
                     Текущий статус: <strong>{STATUS_LABELS[currentStatus]}</strong>
                 </div>
             </div>
             
-            <div style={{ display: 'flex', gap: 16, alignItems: 'center', flexWrap: 'wrap' }}>
-                <div style={{ flex: 1, minWidth: 250 }}>
-                    <div style={{ color: '#666', fontSize: 12, marginBottom: 4 }}>Изменить статус на</div>
+            <div className={styles.controlsWrapper}>
+                <div className={styles.selectWrapper}>
+                    <div className={styles.selectLabel}>Изменить статус на</div>
                     <Select
+                        className={styles.selectComponent}
                         value={selectedStatus}
                         onChange={onStatusSelect}
                         placeholder="Выберите следующий статус"
-                        style={{ width: '100%' }}
                         options={availableStatuses.map(status => ({
                             value: status,
                             label: STATUS_LABELS[status]
@@ -68,34 +64,28 @@ export function StatusChanger({
                 </div>
                 
                 <Button 
+                    className={styles.saveButton}
                     type="primary" 
                     onClick={onStatusChange}
                     disabled={!selectedStatus || isUpdating}
                     loading={isUpdating}
-                    style={{ marginTop: 20 }}
                 >
                     Сохранить
                 </Button>
             </div>
             
-            <Divider style={{ margin: '16px 0' }} />
-            <div style={{ fontSize: 13, color: '#666' }}>
-                <div style={{ marginBottom: 8, fontWeight: 500 }}>Доступные статусы для перехода:</div>
-                <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+            <Divider className={styles.customDivider} />
+            
+            <div className={styles.flowWrapper}>
+                <div className={styles.flowTitle}>Доступные статусы для перехода:</div>
+                <div className={styles.flowItems}>
                     {availableStatuses.map((status, index) => (
                         <span key={status}>
-                            <span style={{ 
-                                display: 'inline-block',
-                                padding: '4px 12px',
-                                backgroundColor: '#e6f7ff',
-                                borderRadius: 4,
-                                color: '#1890ff',
-                                border: '1px solid #91d5ff'
-                            }}>
+                            <span className={styles.statusBadge}>
                                 {STATUS_LABELS[status]}
                             </span>
                             {index < availableStatuses.length - 1 && (
-                                <span style={{ margin: '0 4px' }}>→</span>
+                                <span className={styles.flowArrow}>→</span>
                             )}
                         </span>
                     ))}

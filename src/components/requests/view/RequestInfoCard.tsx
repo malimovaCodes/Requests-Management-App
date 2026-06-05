@@ -1,6 +1,7 @@
 import { Card } from 'antd';
 import { TRequest, STATUS_LABELS } from '@/types';
 import { formatDateTime } from '@/utils/formatDate';
+import styles from './RequestInfoCard.module.scss';
 
 interface RequestInfoCardProps {
     request: TRequest;
@@ -8,38 +9,38 @@ interface RequestInfoCardProps {
 
 export function RequestInfoCard({ request }: RequestInfoCardProps) {
     return (
-        <Card style={{ marginBottom: 16 }}>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
+        <Card className="mb-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <div>
-                    <div style={{ color: '#666', fontSize: 12, marginBottom: 4 }}>Номер заявки</div>
-                    <div style={{ fontSize: 16, fontWeight: 600 }}>#{request.number}</div>
+                    <div className={styles.label}>Номер заявки</div>
+                    <div className="text-base font-semibold">№{request.number}</div>
                 </div>
                 
                 <div>
-                    <div style={{ color: '#666', fontSize: 12, marginBottom: 4 }}>Дата создания</div>
-                    <div style={{ fontSize: 16 }}>{formatDateTime(request.createdAt)}</div>
+                    <div className={styles.label}>Дата создания</div>
+                    <div className={styles.value}>{formatDateTime(request.createdAt)}</div>
                 </div>
 
                 <div>
-                    <div style={{ color: '#666', fontSize: 12, marginBottom: 4 }}>ФИО создающего</div>
-                    <div style={{ fontSize: 16, fontWeight: 600 }}>{request.creatorName}</div>
+                    <div className={styles.label}>ФИО создающего</div>
+                    <div className="text-base font-semibold">{request.creatorName}</div>
                 </div>
 
                 <div>
-                    <div style={{ color: '#666', fontSize: 12, marginBottom: 4 }}>Отдел</div>
-                    <div style={{ fontSize: 16 }}>{request.department.name}</div>
+                    <div className={styles.label}>Отдел</div>
+                    <div className={styles.value}>{request.department.name}</div>
                 </div>
 
                 <div>
-                    <div style={{ color: '#666', fontSize: 12, marginBottom: 4 }}>Текущий статус</div>
-                    <div style={{ fontSize: 16, color: '#1890ff', fontWeight: 600 }}>
+                    <div className={styles.label}>Текущий статус</div>
+                    <div className={styles.valueHighlighted}>
                         {STATUS_LABELS[request.status]}
                     </div>
                 </div>
 
                 <div>
-                    <div style={{ color: '#666', fontSize: 12, marginBottom: 4 }}>Итоговая сумма</div>
-                    <div style={{ fontSize: 20, color: '#1890ff', fontWeight: 700 }}>
+                    <div className={styles.label}>Итоговая сумма</div>
+                    <div className={styles.valueTotal}>
                         {request.totalPrice.toLocaleString('ru-RU')} руб.
                     </div>
                 </div>

@@ -1,6 +1,7 @@
 import { Form, Input, Select, Checkbox, Space, Card } from 'antd';
 import { FormInstance } from 'antd';
 import { TDepartment } from '@/types';
+import styles from './MainInfoForm.module.scss'; 
 
 interface MainInfoFormProps {
     form: FormInstance;
@@ -19,24 +20,21 @@ export function MainInfoForm({
         <Card>
             <Form.Item
                 name="creatorName"
-                label={<span style={{ fontWeight: 600, color: '#333' }}>* ФИО создающего</span>}
+                label={<span className={styles.labelRequired}>* ФИО создающего</span>}
                 rules={[{ required: true, message: 'Введите ФИО' }]}
             >
                 <Input
                     placeholder="Фамилия Имя Отчество"
                     size="large"
-                    style={{
-                        backgroundColor: '#f0f5ff',
-                        border: '1px solid #d6e4ff'
-                    }}
+                    className={styles.highlightedInput}
                 />
             </Form.Item>
 
             <Form.Item
-                label={<span style={{ fontWeight: 600, color: '#333' }}>* Отдел</span>}
+                label={<span className={styles.labelRequired}>* Отдел</span>}
                 rules={[{ required: true, message: 'Выберите отдел' }]}
             >
-                <Space direction="vertical" style={{ width: '100%' }}>
+                <Space orientation="vertical" className={styles.spaceFullWidth}>
                     {!isNewDepartment && (
                         <Form.Item
                             name="departmentId"
@@ -47,10 +45,7 @@ export function MainInfoForm({
                                 placeholder="Выберите отдел из списка"
                                 size="large"
                                 options={departments.map(d => ({ value: d.id, label: d.name }))}
-                                style={{
-                                    width: '100%',
-                                    backgroundColor: '#fff',
-                                }}
+                                className={styles.selectFullWidth}
                             />
                         </Form.Item>
                     )}
@@ -78,11 +73,7 @@ export function MainInfoForm({
                             <Input
                                 placeholder="Название нового отдела"
                                 size="large"
-                                style={{
-                                    backgroundColor: '#f0f5ff',
-                                    border: '1px solid #d6e4ff',
-                                    marginTop: 8
-                                }}
+                                className={styles.newDepartmentInput}
                             />
                         </Form.Item>
                     )}
@@ -92,23 +83,15 @@ export function MainInfoForm({
             <Form.Item
                 name="isApproved"
                 valuePropName="checked"
-                style={{ marginBottom: 8 }}
+                className={styles.mb2}
             >
                 <Checkbox>Заявка согласована</Checkbox>
             </Form.Item>
 
-            <div style={{
-                marginTop: 16,
-                padding: '12px 16px',
-                backgroundColor: '#e6f7ff',
-                border: '1px solid #91d5ff',
-                borderRadius: 6,
-                fontSize: 13,
-                color: '#1890ff'
-            }}>
-                <span style={{ fontWeight: 600 }}>Без флага</span> — статус <strong>«На согласовании»</strong>.
-                <span style={{ marginLeft: 8 }}></span>
-                <span style={{ fontWeight: 600 }}>С флагом</span> — статус <strong>«Согласовано»</strong>.
+            <div className={styles.infoBox}>
+                <span className={styles.textBold}>Без флага</span> — статус <strong>"На согласовании"</strong>.
+                <span className={styles.spacer}></span>
+                <span className={styles.textBold}>С флагом</span> — статус <strong>"Согласовано"</strong>.
             </div>
         </Card>
     );

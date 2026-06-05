@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation';
 import { Empty } from 'antd';
 import { getRequestTabItems } from '@/constants/tabItems';
-import { RequestViewLayout } from '@/components/requests/view/RequestPageLayout';
+import { RequestViewLayout } from '@/components/requests/view/RequestViewLayout';
 import { useRequestById } from '@/hooks/useRequestById';
 
 export function RequestViewPage() {

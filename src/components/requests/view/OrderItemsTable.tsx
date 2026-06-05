@@ -1,12 +1,13 @@
 import { Card, Divider, Table } from 'antd';
 import { TRequest } from '@/types';
 import { detailsColumns } from '@/constants/tableColumns';
+import styles from '@/components/requests/view/OrderItemsTable.module.scss';
 
 interface ItemsTabContentProps {
     request: TRequest;
 }
 
-export function ItemsTabContent({ request }: ItemsTabContentProps) {
+export function OrderItemsTable({ request }: ItemsTabContentProps) {
     return (
         <div>
             <Card>
@@ -15,12 +16,12 @@ export function ItemsTabContent({ request }: ItemsTabContentProps) {
                     dataSource={request.items}
                     rowKey="id"
                     pagination={false}
-                    style={{ marginBottom: 16 }}
+                    className="mb-4"
                 />
                 <Divider />
-                <div style={{ textAlign: 'right', fontSize: 18, fontWeight: 'bold' }}>
+                <div className="text-right text-lg font-bold">
                     Итоговая сумма:{' '}
-                    <span style={{ color: '#1890ff', fontSize: 22 }}>
+                    <span className={styles.totalPrice}>
                         {request.totalPrice.toLocaleString('ru-RU')} руб.
                     </span>
                 </div>

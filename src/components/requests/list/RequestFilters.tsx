@@ -17,10 +17,10 @@ interface RequestFiltersProps {
 
 export function RequestFilters({ filters, onFilterChange, departments }: RequestFiltersProps) {
     return (
-        <Space wrap style={{ marginBottom: 20, width: '100%' }}>
+        <Space wrap className="mb-5 w-full">
             <Select
                 placeholder="Все отделы"
-                style={{ width: 200 }}
+                className="w-[200px]"
                 allowClear
                 value={filters.department}
                 onChange={(value) => onFilterChange({ ...filters, department: value })}
@@ -29,7 +29,7 @@ export function RequestFilters({ filters, onFilterChange, departments }: Request
 
             <Select
                 placeholder="Все статусы"
-                style={{ width: 200 }}
+                className="w-[200px]"
                 allowClear
                 value={filters.status}
                 onChange={(value) => onFilterChange({ ...filters, status: value })}
